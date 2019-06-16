@@ -88,7 +88,7 @@ function keyboard_registra_team ($chatId, $msg)
 	global $key_team;
 		global $key_uno, $key_due, $key_tre, $key_quattro;
 	
-	$reply_markup='{"keyboard":[["'.$key_uno.'","'.$key_due.'"],["'.$key_tre.'","'. $key_quattro. '"]],"resize_keyboard":true}';
+	$reply_markup='{"keyboard":[["'.$key_team.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
