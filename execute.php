@@ -52,21 +52,47 @@ $path_log='log.txt';
 $path_lock='lock.txt';
 
 // keyboard con emoticons
+/*
 $emo_help = "\xF0\x9F\x94\x8D";
 $emoji_help=json_decode('"'.$emo_help.'"');
 $key_help=$emoji_help." indizi";
+*/
 
+$emo_uno = "\x31\xE2\x83\xA3";
+$emoji_uno=json_decode('"'.$emo_uno.'"');
+$key_uno=$emoji_uno." ";
 
-$reply_markup='{"keyboard":[["'.$key_enigma.'","'.$key_help.'", "'.$key_ranking.'"],["'.$key_chat.'","'. $key_setup. '","'.$key_about .'"]],"resize_keyboard":true}';
-		
-$msg="menu abilitati";
+$emo_due = "\x31\xE2\x83\xA3";
+$emoji_due=json_decode('"'.$emo_due.'"');
+$key_due=$emoji_due." ";
 
-$ch = curl_init();
-$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
-curl_setopt($ch, CURLOPT_URL, $myUrl); 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+$emo_tre = "\x31\xE2\x83\xA3";
+$emoji_tre=json_decode('"'.$emo_tre.'"');
+$key_uno=$emoji_tre." ";
 
-// read curl response
-$output = curl_exec($ch);
-curl_close($ch);
+$emo_quattro = "\x31\xE2\x83\xA3";
+$emoji_quattro=json_decode('"'.$emo_quattro.'"');
+$key_quattro=$emoji_quattro." ";
 
+echo keyboard_1_4 ($chatId);
+
+function keyboard_1_4 ($chatId) 
+{
+	global $botUrlMessage;
+	global $key_uno, $key_due, $key_tre, $key_quattro;
+	
+	$reply_markup='{"keyboard":[["'.$key_uno.'","'.$key_due.'"],["'.$key_tre.'","'. $key_quattro. '"]],"resize_keyboard":true}';
+	
+	$msg="tastiera";
+	
+	$ch = curl_init();
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	curl_setopt($ch, CURLOPT_URL, $myUrl); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	
+	// read curl response
+	$output = curl_exec($ch);
+	curl_close($ch);
+	
+    return  $output;
+}
