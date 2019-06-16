@@ -78,8 +78,8 @@ $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team=$emoji_team." registra team";
 
-//keyboard_registra_team ($chatId, "inserisci il nome del team e premi il tasto di registrazione");
-keyboard_1_4 ($chatId, "4 tasti numerici");
+keyboard_registra_team ($chatId, "inserisci il nome del team e premi il tasto di registrazione");
+//keyboard_1_4 ($chatId, "4 tasti numerici!");
 
 
 function keyboard_registra_team ($chatId, $msg) 
