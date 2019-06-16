@@ -74,7 +74,32 @@ $emo_quattro = "\x34\xE2\x83\xA3";
 $emoji_quattro=json_decode('"'.$emo_quattro.'"');
 $key_quattro=$emoji_quattro." ";
 
-keyboard_1_4 ($chatId, "");
+$emo_team = "\xF0\x9F\x9B\xA1";
+$emoji_team=json_decode('"'.$emo_team.'"');
+$key_team=$emoji_team." registra team";
+
+keyboard_registra_team ($chatId, "inserisci il nome del team e premi il tasto di registrazione");
+//keyboard_1_4 ($chatId, "");
+
+function keyboard_registra_team ($chatId, $msg) 
+{
+	global $botUrlMessage;
+	global $key_team;
+	
+	$reply_markup='{"keyboard":["'.$key_team.'"],"resize_keyboard":true}';
+	
+	$ch = curl_init();
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	curl_setopt($ch, CURLOPT_URL, $myUrl); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	
+	// read curl response
+	$output = curl_exec($ch);
+	curl_close($ch);
+	
+    return  $output;
+}
+
 
 function keyboard_1_4 ($chatId, $msg) 
 {
