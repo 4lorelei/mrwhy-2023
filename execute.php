@@ -74,7 +74,7 @@ $emo_quattro = "\x34\xE2\x83\xA3";
 $emoji_quattro=json_decode('"'.$emo_quattro.'"');
 $key_quattro=$emoji_quattro." ";
 
-keyboard_1_4 ($chatId, "");
+keyboard_1_4 ($chatId, "hello");
 
 function keyboard_1_4 ($chatId, $msg) 
 {
@@ -82,8 +82,6 @@ function keyboard_1_4 ($chatId, $msg)
 	global $key_uno, $key_due, $key_tre, $key_quattro;
 	
 	$reply_markup='{"keyboard":[["'.$key_uno.'","'.$key_due.'"],["'.$key_tre.'","'. $key_quattro. '"]],"resize_keyboard":true}';
-	
-	$msg="tastiera";
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
