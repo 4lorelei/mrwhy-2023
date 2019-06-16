@@ -81,7 +81,7 @@ $key_team=$emoji_team." registra team";
 //keyboard_registra_team ($chatId, "inserisci il nome del team e premi il tasto di registrazione");
 keyboard_1_4 ($chatId, "4 tasti");
 
-/*
+
 function keyboard_registra_team ($chatId, $msg) 
 {
 	global $botUrlMessage;
@@ -101,7 +101,7 @@ function keyboard_registra_team ($chatId, $msg)
 	
     return  $output;
 }
-*/
+
 
 
 function keyboard_1_4 ($chatId, $msg) 
