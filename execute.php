@@ -62,15 +62,15 @@ $emo_uno = "\x31\xE2\x83\xA3";
 $emoji_uno=json_decode('"'.$emo_uno.'"');
 $key_uno=$emoji_uno." ";
 
-$emo_due = "\x31\xE2\x83\xA3";
+$emo_due = "\x32\xE2\x83\xA3";
 $emoji_due=json_decode('"'.$emo_due.'"');
 $key_due=$emoji_due." ";
 
-$emo_tre = "\x31\xE2\x83\xA3";
+$emo_tre = "\x33\xE2\x83\xA3";
 $emoji_tre=json_decode('"'.$emo_tre.'"');
-$key_uno=$emoji_tre." ";
+$key_tre=$emoji_tre." ";
 
-$emo_quattro = "\x31\xE2\x83\xA3";
+$emo_quattro = "\x34\xE2\x83\xA3";
 $emoji_quattro=json_decode('"'.$emo_quattro.'"');
 $key_quattro=$emoji_quattro." ";
 
