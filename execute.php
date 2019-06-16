@@ -74,9 +74,9 @@ $emo_quattro = "\x34\xE2\x83\xA3";
 $emoji_quattro=json_decode('"'.$emo_quattro.'"');
 $key_quattro=$emoji_quattro." ";
 
-echo keyboard_1_4 ($chatId);
+keyboard_1_4 ($chatId, "");
 
-function keyboard_1_4 ($chatId) 
+function keyboard_1_4 ($chatId, $msg) 
 {
 	global $botUrlMessage;
 	global $key_uno, $key_due, $key_tre, $key_quattro;
