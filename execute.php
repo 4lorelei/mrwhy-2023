@@ -50,6 +50,9 @@ $path_automa='automa.txt';
 $path_monitor='monitor.txt';
 $path_log='log.txt';
 $path_lock='lock.txt';
+$path_stato='stato.txt';
+$path_utenti='utenti.txt';
+
 
 // keyboard con emoticons
 /*
@@ -78,8 +81,114 @@ $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team=$emoji_team." registra team";
 
-keyboard_registra_team ($chatId, "inserisci il nome del team e premi il tasto di registrazione");
+$emo_team = "\xF0\x9F\x9B\xA1";
+$emoji_team=json_decode('"'.$emo_team.'"');
+$key_team_view=$emoji_team." visualizza team";
+
+
+
+//lettura dello stato corrente del bot
+$stato=stato_corrente();
+
+//stato dell'utente (registrato o non_registrato)
+$stato_utente=stato_utente($chatId);
+
+if ($stato_utente=="non_registrato")
+{
+	keyboard_registra_team ($chatId, "");
+}
+
 //keyboard_1_4 ($chatId, "4 tasti numerici!");
+
+//esecuzione comandi pendenti degli utenti standard
+$push=push_automa($chatId);
+if ($push == "registrazione")
+{
+	if ($stato=="registrazione_team")
+	{
+		registrazione_team($chatId, $text);
+		notifica_mittente($chatId, "registrazione avvenuta con successo");
+		exit();
+	}
+	else
+	{
+		notifica_mittente($chatId, "la registrazione del team al momento non è abilitata");
+		exit();
+	}
+	
+}
+
+//esecuzione comandi immediati degli utenti standard
+if (strpos($text, $key_uno) === 0)
+{
+	if ($stato=="risposte_accettate")
+	{
+		registrazione_risposta($chatId, "1");
+		notifica_mittente($chatId, "è stata registrata la risposta 1");
+		exit();
+	}
+	else
+	{
+		notifica_mittente($chatId, "la risposta non può essere accettata");
+		exit();
+	}
+}
+if (strpos($text, $key_due) === 0)
+{
+	if ($stato=="risposte_accettate")
+	{
+		registrazione_risposta($chatId, "2");
+		notifica_mittente($chatId, "è stata registrata la risposta 2");
+		exit();
+	}
+	else
+	{
+		notifica_mittente($chatId, "la risposta non può essere accettata");
+		exit();
+	}
+}
+if (strpos($text, $key_tre) === 0)
+{
+	if ($stato=="risposte_accettate")
+	{
+		registrazione_risposta($chatId, "3");
+		notifica_mittente($chatId, "è stata registrata la risposta 3");
+		exit();
+	}
+	else
+	{
+		notifica_mittente($chatId, "la risposta non può essere accettata");
+		exit();
+	}
+}
+if (strpos($text, $key_quattro) === 0)
+{
+	if ($stato=="risposte_accettate")
+	{
+		registrazione_risposta($chatId, "4");
+		notifica_mittente($chatId, "è stata registrata la risposta 4");
+		exit();
+	}
+	else
+	{
+		notifica_mittente($chatId, "la risposta non può essere accettata");
+		exit();
+	}
+}
+if (strpos($text, $key_team) === 0)
+{
+	if ($stato=="registrazione")
+	{
+		set_automa("registrazone", $chatId);
+		notifica_mittente($chatId, "inserisci il nome del team e invia il messaggio");
+		exit();
+	}
+	else
+	{
+		notifica_mittente($chatId, "la registrazione del team al momento non è abilitata");
+		exit();
+	}
+}
 
 
 function keyboard_registra_team ($chatId, $msg) 
@@ -88,7 +197,7 @@ function keyboard_registra_team ($chatId, $msg)
 	global $key_team;
 		global $key_uno, $key_due, $key_tre, $key_quattro;
 	
-	$reply_markup='{"keyboard":[["'.$key_team.'"]],"resize_keyboard":true}';
+	$reply_markup='{"keyboard":[["'.$key_team.'", "'.$key_team_view.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
@@ -121,4 +230,90 @@ function keyboard_1_4 ($chatId, $msg)
 	curl_close($ch);
 	
     return  $output;
+}
+
+function set_automa($comando, $id)
+{
+	global $path_automa;
+	
+	//lettura del file dell'automa a stati
+	$myAtmJson = file_get_contents($path_automa);
+	$automa = json_decode($myAtmJson,true);
+	$automa[$id] = $comando;
+	
+	$myAtmJson = json_encode($automa);
+	file_put_contents($path_automa, $myAtmJson, LOCK_EX);
+		
+	return true;
+}
+
+function push_automa($chatId)
+{
+	global $path_automa;
+	
+	//lettura del file dell'automa a stati
+	$myAtmJson = file_get_contents($path_automa);
+	$automa = json_decode($myAtmJson,true);
+	if (isset($automa[$chatId]))
+	{
+		$ret = $automa[$chatId];
+		unset($automa[$chatId]);
+		$myAtmJson = json_encode($automa);
+		file_put_contents($path_automa, $myAtmJson, LOCK_EX);
+	}
+	else
+		$ret="";
+	
+	return $ret;
+}
+
+function stato_corrente()
+{
+	global $path_stato;
+	
+	$myStatoJson = file_get_contents($path_stato);
+	$stato = json_decode($myStatoJson,true);
+	
+	return $stato;
+}
+
+function stato_utente($chatId)
+{
+	global $path_utenti;
+	
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	if (isset($utenti[$chatId]))
+		return "registrato";
+	else
+		return "non_registrato";
+
+}
+function registrazione_team($chatId, $text)
+{
+	global $path_utenti;
+	
+	//lettura del file dell'automa a stati
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	$utenti[$chatId] = $text;
+	
+	$myUtentiJson = json_encode($utenti);
+	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+		
+	return true;
+}
+
+function notifica_mittente($chatId, $text)
+{
+	$ch = curl_init();
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($text);
+	curl_setopt($ch, CURLOPT_URL, $myUrl); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	
+	// read curl response
+	$output = curl_exec($ch);
+	curl_close($ch);
+	
+	return true;
 }
