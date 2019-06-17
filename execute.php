@@ -102,6 +102,19 @@ $emo_admin_reset = "\xF0\x9F\x9B\xA1";
 $emoji_admin_reset=json_decode('"'.$emo_admin_reset.'"');
 $key_admin_reset=$emoji_admin_reset." reset";
 
+$emo_admin_registra_on = "\xF0\x9F\x9B\xA1";
+$emoji_admin_registra_on=json_decode('"'.$emo_admin_registra_on.'"');
+$key_admin_registra_on=$emoji_admin_registra_on." registrazione on";
+
+$emo_admin_registra_off = "\xF0\x9F\x9B\xA1";
+$emoji_admin_registra_off=json_decode('"'.$emo_admin_registra_off.'"');
+$key_admin_registra_off=$emoji_admin_registra_off." registrazione off";
+
+$emo_admin_home = "\xF0\x9F\x9B\xA1";
+$emoji_admin_home=json_decode('"'.$emo_admin_home.'"');
+$key_admin_home=$emoji_admin_home." home";
+
+
 
 // esiste admin?
 if (!esiste_admin())
@@ -123,6 +136,32 @@ if ($tipo=="admin")
 	{
 		keyboard_admin_menu($chatId, "tastiera admin");
 	}
+	
+	
+	
+		global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_reset;
+	//esecuzione comandi immediati degli utenti standard
+	if (strpos($text, $key_admin_registra) === 0)
+	{
+		keyboard_admin_registrazione($chatId, "tastiera admin");
+		exit();
+	}
+	if (strpos($text, $key_admin_team) === 0)
+	{
+		keyboard_admin_team($chatId, "tastiera admin");
+		exit();
+	}
+	if (strpos($text, $key_admin_gara) === 0)
+	{
+		keyboard_admin_gara($chatId, "tastiera admin");
+		exit();
+	}
+	if (strpos($text, $key_admin_reset) === 0)
+	{
+		//
+		exit();
+	}
+	
 
 	
 	exit();
@@ -305,6 +344,28 @@ function keyboard_admin_menu($chatId, $msg)
 	curl_close($ch);
 	
 	set_keyboard($chatId, "menu");
+	
+    return  $output;
+}
+
+function keyboard_admin_registrazione($chatId, $msg)
+{
+	global $botUrlMessage;
+	global $key_admin_registra_on, $key_admin_registra_off, $key_admin_home;
+	
+
+	$reply_markup='{"keyboard":[["'.$key_admin_registra_on.'","'.$key_admin_registra_off.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
+	
+	$ch = curl_init();
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	curl_setopt($ch, CURLOPT_URL, $myUrl); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	
+	// read curl response
+	$output = curl_exec($ch);
+	curl_close($ch);
+	
+	set_keyboard($chatId, "registrazione");
 	
     return  $output;
 }
