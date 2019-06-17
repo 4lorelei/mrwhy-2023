@@ -91,6 +91,9 @@ notifica_mittente($chatId, "benvenuto");
 //lettura dello stato corrente del bot
 $stato=stato_corrente();
 
+//////////////////////////////////////////
+$stato=="registrazione_team";
+
 //stato dell'utente (registrato o non_registrato)
 $stato_utente=stato_utente($chatId);
 
