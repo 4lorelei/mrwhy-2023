@@ -120,7 +120,7 @@ if ($stato_utente=="non_registrato")
 $push=push_automa($chatId);
 if ($push == "registrazione")
 {
-	if ($stato=="registrazione_team")
+	if ($stato_sistema=="registrazione_team")
 	{
 		registrazione_team($chatId, $text);
 		notifica_mittente($chatId, "registrazione avvenuta con successo");
@@ -137,7 +137,7 @@ if ($push == "registrazione")
 //esecuzione comandi immediati degli utenti standard
 if (strpos($text, $key_uno) === 0)
 {
-	if ($stato=="risposte_accettate")
+	if ($stato_sistema=="risposte_accettate")
 	{
 		registrazione_risposta($chatId, "1");
 		notifica_mittente($chatId, "è stata registrata la risposta 1");
@@ -151,7 +151,7 @@ if (strpos($text, $key_uno) === 0)
 }
 if (strpos($text, $key_due) === 0)
 {
-	if ($stato=="risposte_accettate")
+	if ($stato_sistema=="risposte_accettate")
 	{
 		registrazione_risposta($chatId, "2");
 		notifica_mittente($chatId, "è stata registrata la risposta 2");
@@ -165,7 +165,7 @@ if (strpos($text, $key_due) === 0)
 }
 if (strpos($text, $key_tre) === 0)
 {
-	if ($stato=="risposte_accettate")
+	if ($stato_sistema=="risposte_accettate")
 	{
 		registrazione_risposta($chatId, "3");
 		notifica_mittente($chatId, "è stata registrata la risposta 3");
@@ -179,7 +179,7 @@ if (strpos($text, $key_tre) === 0)
 }
 if (strpos($text, $key_quattro) === 0)
 {
-	if ($stato=="risposte_accettate")
+	if ($stato_sistema=="risposte_accettate")
 	{
 		registrazione_risposta($chatId, "4");
 		notifica_mittente($chatId, "è stata registrata la risposta 4");
@@ -193,7 +193,7 @@ if (strpos($text, $key_quattro) === 0)
 }
 if (strpos($text, $key_team) === 0)
 {
-	if ($stato=="registrazione_team")
+	if ($stato_sistema=="registrazione_team")
 	{
 		set_automa("registrazione", $chatId);
 		notifica_mittente($chatId, "inserisci il nome del team e invia il messaggio");
