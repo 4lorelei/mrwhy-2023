@@ -119,6 +119,9 @@ notifica_mittente($chatId, $tipo);
 if ($tipo=="admin")
 {
 	keyboard_admin_menu($chatId);
+	
+	
+	exit();
 }
 
 
