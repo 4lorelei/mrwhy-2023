@@ -181,7 +181,7 @@ if (strpos($text, $key_quattro) === 0)
 }
 if (strpos($text, $key_team) === 0)
 {
-	if ($stato=="registrazione")
+	if ($stato=="registrazione_team")
 	{
 		set_automa("registrazone", $chatId);
 		notifica_mittente($chatId, "inserisci il nome del team e invia il messaggio");
