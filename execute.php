@@ -90,7 +90,7 @@ $key_team_view=$emoji_team." visualizza team";
 $stato=stato_corrente();
 
 //////////////////////////////////////////
-$stato="registrazione_team";
+//$stato="registrazione_team";
 
 //stato dell'utente (registrato o non_registrato)
 $stato_utente=stato_utente($chatId);
@@ -285,6 +285,9 @@ function stato_corrente()
 	
 	$myStatoJson = file_get_contents($path_stato);
 	$stato = json_decode($myStatoJson,true);
+	
+	if ($stato == "")
+		$stato="registrazione_team";
 	
 	return $stato;
 }
