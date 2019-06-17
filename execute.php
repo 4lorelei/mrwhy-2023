@@ -85,8 +85,6 @@ $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team_view=$emoji_team." visualizza team";
 
-notifica_mittente($chatId, "benvenuto");
-
 
 //lettura dello stato corrente del bot
 $stato=stato_corrente();
@@ -192,6 +190,11 @@ if (strpos($text, $key_team) === 0)
 		notifica_mittente($chatId, "la registrazione del team al momento non è abilitata");
 		exit();
 	}
+}
+if (strpos($text, $key_team_view) === 0)
+{
+	visualizza_team($chatId)
+	exit();
 }
 
 
@@ -305,6 +308,18 @@ function registrazione_team($chatId, $text)
 	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
 		
 	return true;
+}
+function visualizza_team($chatId)
+{
+	global $path_utenti;
+	
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	if (isset($utenti[$chatId]))
+		return $utenti[$chatId];
+	else
+		return "team non registrato";
+
 }
 
 function notifica_mittente($chatId, $text)
