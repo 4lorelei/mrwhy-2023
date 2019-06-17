@@ -95,7 +95,7 @@ $stato_utente=stato_utente($chatId);
 
 if ($stato_utente=="non_registrato")
 {
-	keyboard_registra_team ($chatId, "");
+	keyboard_registra_team ($chatId, "tastiera");
 }
 
 //keyboard_1_4 ($chatId, "4 tasti numerici!");
