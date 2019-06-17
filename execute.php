@@ -120,7 +120,7 @@ if ($tipo=="admin")
 {
 	
 	notifica_mittente($chatId, "imposto tastiera");
-	keyboard_admin_menu($chatId);
+	keyboard_admin_menu($chatId, "tastiera admin");
 	notifica_mittente($chatId, "impostata tastiera");
 	
 	
@@ -287,7 +287,7 @@ function keyboard_1_4 ($chatId, $msg)
 }
 
 
-function keyboard_admin_menu($chatId)
+function keyboard_admin_menu($chatId, $msg)
 {
 	global $botUrlMessage;
 	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_reset;
