@@ -307,6 +307,8 @@ function registrazione_team($chatId, $text)
 
 function notifica_mittente($chatId, $text)
 {
+	global $botUrlMessage;
+		
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($text);
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
@@ -316,5 +318,5 @@ function notifica_mittente($chatId, $text)
 	$output = curl_exec($ch);
 	curl_close($ch);
 	
-	return true;
+	return  $output;
 }
