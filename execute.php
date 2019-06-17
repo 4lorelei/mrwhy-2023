@@ -118,7 +118,10 @@ notifica_mittente($chatId, $tipo);
 // gestione admin
 if ($tipo=="admin")
 {
+	
+	notifica_mittente($chatId, "imposto tastiera");
 	keyboard_admin_menu($chatId);
+	notifica_mittente($chatId, "impostata tastiera");
 	
 	
 	
