@@ -195,8 +195,7 @@ if (strpos($text, $key_team) === 0)
 function keyboard_registra_team ($chatId, $msg) 
 {
 	global $botUrlMessage;
-	global $key_team;
-		global $key_uno, $key_due, $key_tre, $key_quattro;
+	global $key_team, $key_team_view;
 	
 	$reply_markup='{"keyboard":[["'.$key_team.'", "'.$key_team_view.'"]],"resize_keyboard":true}';
 	
