@@ -118,9 +118,8 @@ notifica_mittente($chatId, $tipo);
 // gestione admin
 if ($tipo=="admin")
 {
-	//keyboard_admin_menu($chatId);
+	keyboard_admin_menu($chatId);
 	
-	keyboard_1_4 ($chatId, "4 tasti numerici!");
 	
 	
 	exit();
