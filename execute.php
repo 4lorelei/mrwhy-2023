@@ -95,10 +95,6 @@ if (!esiste_admin())
 $tipo=tipo_utente($chatId);
 
 
-
-
-
-
 notifica_mittente($chatId, $tipo);
 
 // gestione admin
@@ -107,15 +103,15 @@ notifica_mittente($chatId, $tipo);
 
 // gestione utente standard
 
-//lettura dello stato corrente del bot
-$stato=stato_corrente();
+//lettura dello stato corrente del bot (registrazione_team, risposte_accettate, pausa, gara_terminata)
+$stato_sistema=stato_corrente();
 
 //stato dell'utente (registrato o non_registrato)
-$stato_utente=stato_utente($chatId);
+$stato_utente=stato_corrente_utente($chatId);
 
 if ($stato_utente=="non_registrato")
 {
-	keyboard_registra_team ($chatId, "");
+	keyboard_registra_team ($chatId, "tastiera");
 }
 
 //keyboard_1_4 ($chatId, "4 tasti numerici!");
@@ -310,7 +306,7 @@ function stato_corrente()
 	return $stato;
 }
 
-function stato_utente($chatId)
+function stato_corrente_utente($chatId)
 {
 	global $path_utenti;
 	
