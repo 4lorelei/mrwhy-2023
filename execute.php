@@ -193,7 +193,8 @@ if (strpos($text, $key_team) === 0)
 }
 if (strpos($text, $key_team_view) === 0)
 {
-	visualizza_team($chatId);
+	$nome_team=visualizza_team($chatId);
+	notifica_mittente($chatId, "il tuo team è:".$nome_team);
 	exit();
 }
 
