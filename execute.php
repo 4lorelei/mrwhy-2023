@@ -92,7 +92,7 @@ notifica_mittente($chatId, "benvenuto");
 $stato=stato_corrente();
 
 //////////////////////////////////////////
-$stato=="registrazione_team";
+$stato="registrazione_team";
 
 //stato dell'utente (registrato o non_registrato)
 $stato_utente=stato_utente($chatId);
