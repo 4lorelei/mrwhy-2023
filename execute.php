@@ -118,7 +118,9 @@ notifica_mittente($chatId, $tipo);
 // gestione admin
 if ($tipo=="admin")
 {
-	keyboard_admin_menu($chatId);
+	//keyboard_admin_menu($chatId);
+	
+	keyboard_1_4 ($chatId, "4 tasti numerici!");
 	
 	
 	exit();
@@ -288,7 +290,15 @@ function keyboard_admin_menu($chatId)
 	global $botUrlMessage;
 	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_reset;
 	
+	
+	/*
 	$reply_markup='{"keyboard":[["'.$key_admin_registra.'","'.$key_admin_team.'"],["'.$key_admin_gara.'","'. $key_admin_reset. '"]],"resize_keyboard":true}';
+	*/
+	
+	
+	global $key_uno, $key_due, $key_tre, $key_quattro;
+	
+	$reply_markup='{"keyboard":[["'.$key_uno.'","'.$key_due.'"],["'.$key_tre.'","'. $key_quattro. '"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
