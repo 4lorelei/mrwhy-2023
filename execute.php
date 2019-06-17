@@ -86,11 +86,25 @@ $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team_view=$emoji_team." visualizza team";
 
 
+// esiste admin?
+if (!esiste_admin())
+{
+	set_admin($chatId);
+}
+
+// lettura tipo utente
+$tipo_utente=tipo_utente($chatId);
+
+notifica_mittente($chatId, $tipo_utente);
+
+// gestione admin
+
+
+
+// gestione utente standard
+
 //lettura dello stato corrente del bot
 $stato=stato_corrente();
-
-//////////////////////////////////////////
-//$stato="registrazione_team";
 
 //stato dell'utente (registrato o non_registrato)
 $stato_utente=stato_utente($chatId);
@@ -345,4 +359,41 @@ function notifica_mittente($chatId, $text)
 	curl_close($ch);
 	
 	return  $output;
+}
+function esiste_admin()
+{
+	global $path_admin;
+	
+	$myAdminJson = file_get_contents($path_admin);
+	$admin = json_decode($myAdminJson,true);
+	if (sizeof($admin) == 0 )
+		return false;
+	else
+		return true;
+}
+function set_admim($chatId)
+{
+	global $path_admin;
+	
+	//lettura del file dell'automa a stati
+	$myAdminJson = file_get_contents($path_admin);
+	$admin = json_decode($myAdminJson,true);
+	$admin[$chatId] = true;
+	
+	$myAdminJson = json_encode($admin);
+	file_put_contents($path_admin, $myAdminJson, LOCK_EX);
+		
+	return true;
+}
+function tipo_utente($chatId)
+{
+	global $path_admin;
+	
+	//lettura del file dell'automa a stati
+	$myAdminJson = file_get_contents($path_admin);
+	$admin = json_decode($myAdminJson,true);
+	if (isset($admin[$chatId]))
+		return "admin";
+	else
+		return "standard";
 }
