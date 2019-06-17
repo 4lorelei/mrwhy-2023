@@ -85,20 +85,41 @@ $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team_view=$emoji_team." visualizza team";
 
+$emo_admin_registra = "\xF0\x9F\x9B\xA1";
+$emoji_admin_registra=json_decode('"'.$emo_admin_registra.'"');
+$key_admin_registra=$emoji_admin_registra." registrazione";
+
+$emo_admin_team = "\xF0\x9F\x9B\xA1";
+$emoji_admin_team=json_decode('"'.$emo_admin_team.'"');
+$key_admin_team=$emoji_admin_team." team";
+
+$emo_admin_gara = "\xF0\x9F\x9B\xA1";
+$emoji_admin_gara=json_decode('"'.$emo_admin_gara.'"');
+$key_admin_gara=$emoji_admin_gara." gara";
+
+$emo_admin_reset = "\xF0\x9F\x9B\xA1";
+$emoji_admin_reset=json_decode('"'.$emo_admin_reset.'"');
+$key_admin_reset=$emoji_admin_reset." reset";
+
+
 // esiste admin?
 if (!esiste_admin())
 {
 	set_admin($chatId);
 }
 
-// lettura tipo utente
+// lettura tipo utente (admin, standard)
 $tipo=tipo_utente($chatId);
+
 
 
 notifica_mittente($chatId, $tipo);
 
 // gestione admin
-
+if ($tipo=="admin")
+{
+	keyboard_admin_menu($chatId);
+}
 
 
 // gestione utente standard
@@ -245,6 +266,26 @@ function keyboard_1_4 ($chatId, $msg)
 	global $key_uno, $key_due, $key_tre, $key_quattro;
 	
 	$reply_markup='{"keyboard":[["'.$key_uno.'","'.$key_due.'"],["'.$key_tre.'","'. $key_quattro. '"]],"resize_keyboard":true}';
+	
+	$ch = curl_init();
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	curl_setopt($ch, CURLOPT_URL, $myUrl); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	
+	// read curl response
+	$output = curl_exec($ch);
+	curl_close($ch);
+	
+    return  $output;
+}
+
+
+function keyboard_admin_menu($chatId)
+{
+	global $botUrlMessage;
+	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_reset;
+	
+	$reply_markup='{"keyboard":[["'.$key_admin_registra.'","'.$key_admin_team.'"],["'.$key_admin_gara.'","'. $key_admin_reset. '"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
