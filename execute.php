@@ -85,16 +85,7 @@ $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team_view=$emoji_team." visualizza team";
 
-
-// esiste admin?
-if (!esiste_admin())
-{
-	set_admin($chatId);
-}
-
-// lettura tipo utente
-$tipo_utente=tipo_utente($chatId);
-
+$tipo_utente="standard";
 notifica_mittente($chatId, $tipo_utente);
 
 // gestione admin
