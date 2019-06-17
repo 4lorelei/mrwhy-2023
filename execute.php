@@ -97,7 +97,7 @@ $stato_utente=stato_utente($chatId);
 
 if ($stato_utente=="non_registrato")
 {
-	keyboard_registra_team ($chatId, "tastiera");
+	keyboard_registra_team ($chatId, "");
 }
 
 //keyboard_1_4 ($chatId, "4 tasti numerici!");
@@ -194,7 +194,12 @@ if (strpos($text, $key_team) === 0)
 if (strpos($text, $key_team_view) === 0)
 {
 	$nome_team=visualizza_team($chatId);
-	notifica_mittente($chatId, "il tuo team è:".$nome_team);
+	notifica_mittente($chatId, "il tuo team è: ".$nome_team);
+	exit();
+}
+else
+{
+	notifica_mittente($chatId, "comando non riconosciuto ");
 	exit();
 }
 
