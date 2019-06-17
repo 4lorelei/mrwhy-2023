@@ -52,6 +52,7 @@ $path_log='log.txt';
 $path_lock='lock.txt';
 $path_stato='stato.txt';
 $path_utenti='utenti.txt';
+$path_keyboard='keyboard.txt';
 
 
 // keyboard con emoticons
@@ -118,12 +119,11 @@ notifica_mittente($chatId, $tipo);
 // gestione admin
 if ($tipo=="admin")
 {
-	
-	notifica_mittente($chatId, "imposto tastiera");
-	keyboard_admin_menu($chatId, "tastiera admin");
-	notifica_mittente($chatId, "impostata tastiera");
-	
-	
+	if (keyboard_impostata($chatId)=="none")
+	{
+		keyboard_admin_menu($chatId, "tastiera admin");
+	}
+
 	
 	exit();
 }
@@ -304,6 +304,8 @@ function keyboard_admin_menu($chatId, $msg)
 	$output = curl_exec($ch);
 	curl_close($ch);
 	
+	set_keyboard($chatId, "menu");
+	
     return  $output;
 }
 
@@ -445,4 +447,34 @@ function tipo_utente($chatId)
 		return "admin";
 	else
 		return "standard";
+}
+function set_keyboard($chatId, $nome)
+{
+	global $path_keyboard;
+	
+	//lettura del file dell'automa a stati
+	$myKeyJson = file_get_contents($path_keyboard);
+	$keyboard = json_decode($myKeyJson,true);
+	$keyboard[$chatId] = $nome;
+	
+	$myKeyJson = json_encode($keyboard);
+	file_put_contents($path_keyboard, $myKeyJson, LOCK_EX);
+		
+	return true;
+}
+function keyboard_impostata($chatId)
+{
+	global $path_keyboard;
+	
+	//lettura del file dell'automa a stati
+	$myKeyJson = file_get_contents($path_keyboard);
+	$keyboard = json_decode($myKeyJson,true);
+	$nome=$keyboard[$chatId];
+	
+	if (sizeof($nome)==0)
+	{
+		return "none";
+	}
+	else
+		return $nome;
 }
