@@ -193,7 +193,7 @@ if (strpos($text, $key_team) === 0)
 }
 if (strpos($text, $key_team_view) === 0)
 {
-	visualizza_team($chatId)
+	visualizza_team($chatId);
 	exit();
 }
 
