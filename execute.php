@@ -86,7 +86,7 @@ $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team_view=$emoji_team." visualizza team";
 
 esiste_admin();
-set_admin($chatId);
+//set_admin($chatId);
 
 
 
