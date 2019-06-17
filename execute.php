@@ -85,6 +85,7 @@ $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team_view=$emoji_team." visualizza team";
 
+notifica_mittente($chatId, "benvenuto");
 
 
 //lettura dello stato corrente del bot
