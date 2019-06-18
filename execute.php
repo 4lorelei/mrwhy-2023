@@ -883,7 +883,7 @@ function registrazione_risposte($risposte)
 	global $path_soluzioni;
 	$soluzioni="";
 		
-	for ($i=0; i<strlen($risposte); i++)
+	for ($i=0; $i<strlen($risposte); $i++)
 	{
 		$r=substr($risposte, $i, 1);
 		$soluzioni[$i]=$r;
