@@ -881,14 +881,12 @@ function notifica_all($chatId, $notifica)
 function registrazione_risposte($risposte)
 {
 	global $path_soluzioni;
-	$soluzioni="";
 		
 	for ($i=0; $i<strlen($risposte); $i++)
 	{
 		$r=substr($risposte, $i, 1);
 		$soluzioni[$i]=$r;
 	}
-	$soluzioni="";
 	$soluzioni[0]="33";
 	$soluzioni[1]="44";
 	$mySoluzioniJson = json_encode($soluzioni);
