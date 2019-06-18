@@ -843,7 +843,7 @@ function invia_keyboard($nome, $chatId)
 			
 		elseif ($nome=="gara"){
 			notifica_mittente($chatId, "notifico tastiera gara a ". $key);
-			$out=keyboard_gara($key, "", $chatId);
+			$out=keyboard_gara($key, "tatsiera abilitata", $chatId);
 			notifica_mittente($chatId, "notificato tastiera gara a ". $key. "esito ". $out);
 			$cont++;
 		}
