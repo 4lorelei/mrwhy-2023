@@ -98,9 +98,9 @@ $emo_admin_gara = "\xF0\x9F\x9B\xA1";
 $emoji_admin_gara=json_decode('"'.$emo_admin_gara.'"');
 $key_admin_gara=$emoji_admin_gara." gara";
 
-$emo_admin_reset = "\xF0\x9F\x9B\xA1";
-$emoji_admin_reset=json_decode('"'.$emo_admin_reset.'"');
-$key_admin_reset=$emoji_admin_reset." reset";
+$emo_admin_set = "\xF0\x9F\x9B\xA1";
+$emoji_admin_set=json_decode('"'.$emo_admin_set.'"');
+$key_admin_set=$emoji_admin_set." impostazioni";
 
 $emo_admin_registra_on = "\xF0\x9F\x9B\xA1";
 $emoji_admin_registra_on=json_decode('"'.$emo_admin_registra_on.'"');
@@ -136,6 +136,22 @@ $emoji_admin_anteprima=json_decode('"'.$emo_admin_anteprima.'"');
 $key_admin_anteprima=$emoji_admin_anteprima." anteprima";
 
 
+$emo_admin_reset = "\xF0\x9F\x9B\xA1";
+$emoji_admin_reset=json_decode('"'.$emo_admin_reset.'"');
+$key_admin_reset=$emoji_admin_reset." reset";
+
+$emo_admin_livello = "\xF0\x9F\x9B\xA1";
+$emoji_admin_livello=json_decode('"'.$emo_admin_livello.'"');
+$key_admin_livello=$emoji_admin_livello." livello";
+
+$emo_admin_risposte = "\xF0\x9F\x9B\xA1";
+$emoji_admin_risposte=json_decode('"'.$emo_admin_risposte.'"');
+$key_admin_risposte=$emoji_admin_risposte." risposte";
+
+$emo_admin_verifica = "\xF0\x9F\x9B\xA1";
+$emoji_admin_verifica=json_decode('"'.$emo_admin_verifica.'"');
+$key_admin_verifica=$emoji_admin_verifica." verifica";
+
 $emo_admin_home = "\xF0\x9F\x9B\xA1";
 $emoji_admin_home=json_decode('"'.$emo_admin_home.'"');
 $key_admin_home=$emoji_admin_home." home";
@@ -170,6 +186,8 @@ if ($tipo=="admin")
 		
 	
 	//esecuzione comandi immediati di admin
+	
+	// tastiere di admin
 	if (strcmp($text, $key_admin_registra) === 0)
 	{
 		keyboard_admin_registrazione($chatId, "tastiera admin");
@@ -185,11 +203,14 @@ if ($tipo=="admin")
 		keyboard_admin_gara($chatId, "tastiera admin gara");
 		exit();
 	}
-	if (strcmp($text, $key_admin_reset) === 0)
+	if (strcmp($text, $key_admin_set) === 0)
 	{
-		//
+		keyboard_admin_gara($chatId, "tastiera admin set");
 		exit();
 	}
+	
+	
+	// comandi della tastiera registrazione
 	if (strcmp($text, $key_admin_registra_on) == 0)
 	{
 		notifica_mittente($chatId, "registrazione dei team abilitata");
@@ -202,6 +223,8 @@ if ($tipo=="admin")
 		set_stato_corrente("registrazione_team_off");
 		exit();
 	}
+	
+	// comandi della tastiera team
 	if (strcmp($text, $key_admin_team_visualizza) === 0)
 	{
 		$elenco=elenca_team();
@@ -216,7 +239,34 @@ if ($tipo=="admin")
 		exit();
 	}
 	
+	// comandi della tastiera gara
+	if (strcmp($text, $key_admin_go) === 0)
+	{
+		
+		notifica_mittente($chatId, "GOOOOO");
+		
+		exit();
+	}
+	if (strcmp($text, $key_admin_pausa) === 0)
+	{
+		
+		notifica_mittente($chatId, "PAUSAAAA");
+		exit();
+	}
+	if (strcmp($text, $key_admin_anteprima) === 0)
+	{
+		
+		notifica_mittente($chatId, "ANTEPRIMA CLASSIFICA STATO E LIVELLO CORRENTE");
+		exit();
+	}
+	if (strcmp($text, $key_admin_classifica) === 0)
+	{
+		
+		notifica_mittente($chatId, "INVIO CLASSIFICA");
+		exit();
+	}
 	
+	// comando home
 	if (strcmp($text, $key_admin_home) === 0)
 	{
 		keyboard_admin_menu($chatId, "tastiera admin");
@@ -406,9 +456,9 @@ function keyboard_admin_gara ($chatId, $msg)
 function keyboard_admin_menu($chatId, $msg)
 {
 	global $botUrlMessage;
-	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_reset;
+	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_set;
 
-	$reply_markup='{"keyboard":[["'.$key_admin_registra.'","'.$key_admin_team.'"],["'.$key_admin_gara.'","'. $key_admin_reset. '"]],"resize_keyboard":true}';
+	$reply_markup='{"keyboard":[["'.$key_admin_registra.'","'.$key_admin_team.'"],["'.$key_admin_gara.'","'. $key_admin_set. '"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
@@ -464,6 +514,28 @@ function keyboard_admin_team($chatId, $msg)
 	curl_close($ch);
 	
 	set_keyboard($chatId, "team");
+	
+    return  $output;
+}
+
+function keyboard_admin_set($chatId, $msg)
+{
+	global $botUrlMessage;
+	global $key_admin_risposte, $key_admin_livello, $key_admin_verifica, $key_admin_reset, $key_admin_home;
+	
+
+	$reply_markup='{"keyboard":[["'.$key_admin_risposte.'","'.$key_admin_livello.'"],["'.$key_admin_verifica.'","'.$key_admin_reset.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
+	
+	$ch = curl_init();
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	curl_setopt($ch, CURLOPT_URL, $myUrl); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	
+	// read curl response
+	$output = curl_exec($ch);
+	curl_close($ch);
+	
+	set_keyboard($chatId, "set");
 	
     return  $output;
 }
