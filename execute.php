@@ -142,7 +142,7 @@ if ($tipo=="admin")
 {
 	$tastiera=keyboard_impostata($chatId);
 	if ($tastiera=="none")
-		keyboard_admin_menu($chatId, "");
+		keyboard_admin_menu($chatId, "menu");
 	elseif ($tastiera=="team")
 		keyboard_admin_team($chatId, "");
 	elseif ($tastiera=="registrazione")
@@ -151,7 +151,7 @@ if ($tipo=="admin")
 		keyboard_admin_menu($chatId, "");
 		
 	
-	//esecuzione comandi immediati degli utenti standard
+	//esecuzione comandi immediati di admin
 	if (strcmp($text, $key_admin_registra) === 0)
 	{
 		keyboard_admin_registrazione($chatId, "tastiera admin");
@@ -205,7 +205,7 @@ if ($tipo=="admin")
 		exit();
 	}
 	
-	//esecuzione comandi pendenti degli utenti standard
+	//esecuzione comandi pendenti di admin
 	$push=push_automa($chatId);
 	if ($push == "elimina_team")
 	{
@@ -386,7 +386,8 @@ function keyboard_admin_menu($chatId, $msg)
 {
 	global $botUrlMessage;
 	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_reset;
-	
+
+notifica_mittente($chatId, "imposto tastiera menu ");
 
 	$reply_markup='{"keyboard":[["'.$key_admin_registra.'","'.$key_admin_team.'"],["'.$key_admin_gara.'","'. $key_admin_reset. '"]],"resize_keyboard":true}';
 	
