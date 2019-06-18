@@ -243,7 +243,7 @@ if ($tipo=="admin")
 	if (strcmp($text, $key_admin_go) === 0)
 	{
 		set_stato_corrente("risposte_accettate");
-		notifica_all($chatId, "puoi rispondere alle domande!")
+		notifica_all($chatId, "puoi rispondere alle domande!");
 		notifica_mittente($chatId, "GOOOOO");
 		
 		exit();
@@ -251,7 +251,7 @@ if ($tipo=="admin")
 	if (strcmp($text, $key_admin_pausa) === 0)
 	{
 		set_stato_corrente("pausa");
-		notifica_all($chatId, "STOP!")
+		notifica_all($chatId, "STOP!");
 		notifica_mittente($chatId, "PAUSAAAA");
 		exit();
 	}
