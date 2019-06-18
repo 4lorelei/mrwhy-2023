@@ -201,8 +201,6 @@ if ($tipo=="admin")
 	
 	//esecuzione comandi pendenti degli utenti standard
 	$push=push_automa($chatId);
-	
-	notifica_mittente($chatId, "***".$text."***");
 	if ($push == "elimina_team")
 	{
 		notifica_mittente($chatId, "Cancello ***".$text."***");
@@ -525,7 +523,7 @@ function registrazione_team($chatId, $text)
 	return true;
 }
 
-function cancellazione_team($chatId, $text)
+function cancellazione_team($chatId)
 {
 	global $path_utenti;
 	
