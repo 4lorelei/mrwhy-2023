@@ -846,7 +846,7 @@ function invia_keyboard($nome, $chatId)
 			$out=keyboard_gara($key, "tatsiera abilitata", $chatId);
 			notifica_mittente($chatId, "notificato tastiera gara a ". $key. "esito ". $out);
 			$cont++;
-		}
+		} 
 			
     }
 	
