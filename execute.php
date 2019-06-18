@@ -996,7 +996,7 @@ function invia_risposta($tasto, $chatId)
 	if (isset($utenti[$chatId][(int)$livello]))    //risposta già data
 		return false;
 	
-	$esatta = risposta_esatta((int)$livello);
+	$esatta = risposta_esatta($livello);
 	    notifica_mittente($chatId, "attesa risposta esatta ".$esatta);
 	if ((int)$esatta == (int)$risposta)
 	{
