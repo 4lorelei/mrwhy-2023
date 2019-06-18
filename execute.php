@@ -963,6 +963,8 @@ function invia_risposta($tasto, $chatId)
 	elseif ($tasto==$key_quattro) 
 		$risposta="4";
 		
+		notifica_mittente($chatId, "ricevuto risposta ".$risposta);
+		
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
 	
