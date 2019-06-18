@@ -379,7 +379,7 @@ function keyboard_registra_team ($chatId, $msg)
 }
 
 
-
+/*
 function keyboard_admin_gara ($chatId, $msg) 
 {
 	global $botUrlMessage;
@@ -400,6 +400,7 @@ function keyboard_admin_gara ($chatId, $msg)
 	
     return  $output;
 }
+*/
 
 
 function keyboard_admin_menu($chatId, $msg)
