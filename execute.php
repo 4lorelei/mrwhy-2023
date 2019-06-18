@@ -238,8 +238,8 @@ if ($tipo=="admin")
 	{
 		set_stato_corrente("risposte_accettate");
 		//notifica_all($chatId, "puoi rispondere alle domande!");
-		invia_keyboard("gara");
-		notifica_mittente($chatId, "GOOOOO");
+		$cont=invia_keyboard("gara");
+		notifica_mittente($chatId, "GOOOOO a " . $cont . " utenti" );
 		
 		exit();
 	}
@@ -814,14 +814,19 @@ function invia_keyboard($nome)
 	$cont=0;
 	foreach ($utenti as $key => $value)
 	{
-		if ($nome=="registra_team")
+		if ($nome=="registra_team"){
 			keyboard_registra_team($key, "");
-		elseif ($nome=="gara")
+			$cont++;
+		}
+			
+		elseif ($nome=="gara"){
 			keyboard_gara($key, "");
-		$cont++;
+			$cont++;
+		}
+			
     }
 	
-	return cont;
+	return $cont;
 
 }
 function notifica_all($chatId, $notifica)
