@@ -55,6 +55,8 @@ $path_utenti='utenti.txt';
 $path_keyboard='keyboard.txt';
 $path_soluzioni='soluzioni.txt';
 $path_livello='livello.txt';
+$path_punteggio='punteggio.txt';
+$path_piazzamento='piazzamento.txt';
 
 
 // keyboard con emoticons
@@ -934,9 +936,11 @@ function get_livello()
 	return $livello;
 }
 
-function invia_risposta($tasto)
+function invia_risposta($tasto, $chatId)
 {
+	global $path_utenti, $path_punteggio;
 	global $key_uno, $key_due, $key_tre, $key_quattro;
+
 	
 	if ($tasto==$key_uno) 
 		$risposta="1";
@@ -946,15 +950,31 @@ function invia_risposta($tasto)
 		$risposta="3";
 	elseif ($tasto==$key_quattro) 
 		$risposta="4";
+		
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	
+	$myPunteggioJson = file_get_contents($path_punteggio);
+	$punteggio = json_decode($myPunteggioJson,true);
+	
+	$myPiazzamentoJson = file_get_contents($path_piazzamento);
+	$piazzamento = json_decode($myPiazzamentoJson,true);
+	
+	if (sizeof($piazzamento)==0)
+		$piazzamento=0;
 	
 	$livello = get_livello();
 	$esatta = risposta_esatta($livello);
 	if ($esatta == $risposta){
 		$ret=true;
-		
+	    $utenti[$chatId][$livello]=$punteggio[$piazzamento];
+		$piazzamento++;
+		$myPiazzamentoJson = json_encode($piazzamento);
+		file_put_contents($path_piazzamento, $myPiazzamentoJson, LOCK_EX);
 	}
 	else
 	{
+		$utenti[$chatId][$livello]=0;
 		$ret=false;
 	}
 		
