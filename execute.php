@@ -161,7 +161,7 @@ if ($tipo=="admin")
 		//
 		exit();
 	}
-	if (strpos($text, $key_admin_registrazione_on) === 0)
+	if (strpos($text, $key_admin_registra_on) === 0)
 	{
 		//////INVIARE KEYBOARD DI REGISTRAZIONE A TUTTI GLI UTENTI
 		
@@ -169,8 +169,9 @@ if ($tipo=="admin")
 		set_stato_corrente("registrazione_team");
 		exit();
 	}
-	if (strpos($text, $key_admin_registrazione_off) === 0)
+	if (strpos($text, $key_admin_registra_off) === 0)
 	{
+		notifica_mittente($chatId, "registrazione dei team disabilitata");
 		set_stato_corrente("registrazione_team_off");
 		exit();
 	}
