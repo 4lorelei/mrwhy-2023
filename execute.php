@@ -110,6 +110,14 @@ $emo_admin_registra_off = "\xF0\x9F\x9B\xA1";
 $emoji_admin_registra_off=json_decode('"'.$emo_admin_registra_off.'"');
 $key_admin_registra_off=$emoji_admin_registra_off." registrazione off";
 
+$emo_admin_team_visualizza = "\xF0\x9F\x9B\xA1";
+$emoji_admin_team_visualizza=json_decode('"'.$emo_admin_team_visualizza.'"');
+$key_admin_team_visualizza=$emoji_admin_team_visualizza." visualizza";
+
+$emo_admin_team_elimina = "\xF0\x9F\x9B\xA1";
+$emoji_admin_team_elimina=json_decode('"'.$emo_admin_team_elimina.'"');
+$key_admin_team_elimina=$emoji_admin_team_elimina." elimina";
+
 $emo_admin_home = "\xF0\x9F\x9B\xA1";
 $emoji_admin_home=json_decode('"'.$emo_admin_home.'"');
 $key_admin_home=$emoji_admin_home." home";
@@ -172,13 +180,34 @@ if ($tipo=="admin")
 		set_stato_corrente("registrazione_team_off");
 		exit();
 	}
+	if (strcmp($text, $key_admin_team_visualizza) === 0)
+	{
+		notifica_mittente($chatId, "visualizza team");
+        // LISTARE TEAM
+		exit();
+	}
+	if (strcmp($text, $key_admin_team_elimina) === 0)
+	{
+		set_automa("elimina_team", $chatId);
+		notifica_mittente($chatId, "inserisci l'id del team da eliminare");
+		exit();
+	}
+	
 	if (strcmp($text, $key_admin_home) === 0)
 	{
 		keyboard_admin_menu($chatId, "tastiera admin");
 		exit();
 	}
 	
-
+	//esecuzione comandi pendenti degli utenti standard
+	$push=push_automa($chatId);
+	if ($push == "elimina_team")
+	{
+		cancellazione_team($text);
+		notifica_mittente($chatId, "cancellazione del team ".$text." avvenuta correttamente");
+		exit();
+	
+	}
 	
 	exit();
 }
@@ -218,7 +247,7 @@ if ($push == "registrazione")
 }
 
 //esecuzione comandi immediati degli utenti standard
-if (strpos($text, $key_uno) === 0)
+if (strcmp($text, $key_uno) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
@@ -232,7 +261,7 @@ if (strpos($text, $key_uno) === 0)
 		exit();
 	}
 }
-if (strpos($text, $key_due) === 0)
+if (strcmp($text, $key_due) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
@@ -246,7 +275,7 @@ if (strpos($text, $key_due) === 0)
 		exit();
 	}
 }
-if (strpos($text, $key_tre) === 0)
+if (strcmp($text, $key_tre) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
@@ -260,7 +289,7 @@ if (strpos($text, $key_tre) === 0)
 		exit();
 	}
 }
-if (strpos($text, $key_quattro) === 0)
+if (strcmp($text, $key_quattro) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
@@ -274,7 +303,7 @@ if (strpos($text, $key_quattro) === 0)
 		exit();
 	}
 }
-if (strpos($text, $key_team) === 0)
+if (strcmp($text, $key_team) === 0)
 {
 	if ($stato_sistema=="registrazione_team")
 	{
@@ -288,7 +317,7 @@ if (strpos($text, $key_team) === 0)
 		exit();
 	}
 }
-if (strpos($text, $key_team_view) === 0)
+if (strcmp($text, $key_team_view) === 0)
 {
 	$nome_team=visualizza_team($chatId);
 	notifica_mittente($chatId, "il tuo team è: ".$nome_team);
@@ -386,6 +415,28 @@ function keyboard_admin_registrazione($chatId, $msg)
     return  $output;
 }
 
+function keyboard_admin_team($chatId, $msg)
+{
+	global $botUrlMessage;
+	global $key_admin_team_visualizza, $key_admin_team_elimina, $key_admin_home;
+	
+
+	$reply_markup='{"keyboard":[["'.$key_admin_team_visualizza.'","'.$key_admin_team_elimina.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
+	
+	$ch = curl_init();
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	curl_setopt($ch, CURLOPT_URL, $myUrl); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	
+	// read curl response
+	$output = curl_exec($ch);
+	curl_close($ch);
+	
+	set_keyboard($chatId, "team");
+	
+    return  $output;
+}
+
 function set_automa($comando, $id)
 {
 	global $path_automa;
@@ -470,6 +521,22 @@ function registrazione_team($chatId, $text)
 		
 	return true;
 }
+
+function cancellazione_team($chatId, $text)
+{
+	global $path_utenti;
+	
+	//lettura del file dell'automa a stati
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	unset($utenti[$chatId]);
+	
+	$myUtentiJson = json_encode($utenti);
+	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+		
+	return true;
+}
+
 function visualizza_team($chatId)
 {
 	global $path_utenti;
