@@ -381,12 +381,13 @@ function keyboard_registra_team ($chatId, $msg)
 
 function keyboard_admin_gara ($chatId, $msg) 
 {
+	/*
 	global $botUrlMessage;
 	global $key_admin_go, $key_admin_pausa, $key_admin_anteprima, $key_admin_classifica, $key_admin_home;
 
-	/*
+	
 	$reply_markup='{"keyboard":[["'.$key_admin_go.'","'.$key_admin_pausa.'"],["'.$key_admin_anteprima.'","'. $key_admin_classifica. '"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
-	*/
+	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
@@ -397,6 +398,7 @@ function keyboard_admin_gara ($chatId, $msg)
 	curl_close($ch);
 	
 	set_keyboard($chatId, "gara");
+	*/
 	
     return  $output;
 }
