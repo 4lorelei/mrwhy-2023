@@ -244,6 +244,7 @@ if ($tipo=="admin")
 	{
 		set_stato_corrente("risposte_accettate");
 		notifica_all($chatId, "puoi rispondere alle domande!");
+		invia_keyboard("gara");
 		notifica_mittente($chatId, "GOOOOO");
 		
 		exit();
@@ -252,6 +253,7 @@ if ($tipo=="admin")
 	{
 		set_stato_corrente("pausa");
 		notifica_all($chatId, "STOP!");
+		invia_keyboard("gara");
 		notifica_mittente($chatId, "PAUSAAAA");
 		exit();
 	}
