@@ -242,14 +242,16 @@ if ($tipo=="admin")
 	// comandi della tastiera gara
 	if (strcmp($text, $key_admin_go) === 0)
 	{
-		
+		set_stato_corrente("risposte_accettate");
+		notifica_all($chatId, "puoi rispondere alle domande!")
 		notifica_mittente($chatId, "GOOOOO");
 		
 		exit();
 	}
 	if (strcmp($text, $key_admin_pausa) === 0)
 	{
-		
+		set_stato_corrente("pausa");
+		notifica_all($chatId, "STOP!")
 		notifica_mittente($chatId, "PAUSAAAA");
 		exit();
 	}
@@ -806,4 +808,36 @@ function invia_keyboard($nome)
 	
 	return cont;
 
+}
+function notifica_all($chatId, $notifica)
+{
+	global $path_utenti;
+	
+	
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	
+	$cont=0;
+	foreach ($utenti as $key => $value)
+	{
+		//Telegram prescrive una pausa di 1 sec ogni 30 notifiche 
+		if ($j % 20 == 0)
+		{
+			sleep(1);
+		}
+		$j++;
+		$ch = curl_init();
+		$myUrl=$botUrlMessage . "?chat_id=" . $key . "&text=" . urlencode($notifica);
+		curl_setopt($ch, CURLOPT_URL, $myUrl); 
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+		
+		// read curl response
+		$output = curl_exec($ch);
+		curl_close($ch);
+		$cont++;
+	}
+	
+	notifica_mittente($chatId, "notificato a " . cont . " utenti");
+
+	return true;
 }
