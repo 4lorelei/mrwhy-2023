@@ -53,6 +53,7 @@ $path_lock='lock.txt';
 $path_stato='stato.txt';
 $path_utenti='utenti.txt';
 $path_keyboard='keyboard.txt';
+$path_soluzioni='soluzioni.txt';
 
 
 // keyboard con emoticons
@@ -880,6 +881,7 @@ function notifica_all($chatId, $notifica)
 function registrazione_risposte($risposte)
 {
 	global $path_soluzioni;
+	$soluzioni="";
 		
 	for ($i=0; i<strlen($risposte); i++)
 	{
