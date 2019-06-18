@@ -985,7 +985,8 @@ function invia_risposta($tasto, $chatId)
 		return false;
 	
 	$esatta = risposta_esatta($livello);
-	if ($esatta == $risposta)
+	    notifica_mittente($chatId, "attesa risposta esatta ".$esatta);
+	if ((int)$esatta == (int)$risposta)
 	{
 	    $utenti[$chatId][$livello]=$punteggio[$piazzamento];
 		$piazzamento++;
