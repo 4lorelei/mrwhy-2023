@@ -138,27 +138,27 @@ if ($tipo=="admin")
 	}
 	
 	//esecuzione comandi immediati degli utenti standard
-	if (strpos($text, $key_admin_registra) === 0)
+	if (strcmp($text, $key_admin_registra) === 0)
 	{
 		keyboard_admin_registrazione($chatId, "tastiera admin");
 		exit();
 	}
-	if (strpos($text, $key_admin_team) === 0)
+	if (strcmp($text, $key_admin_team) === 0)
 	{
 		keyboard_admin_team($chatId, "tastiera admin");
 		exit();
 	}
-	if (strpos($text, $key_admin_gara) === 0)
+	if (strcmp($text, $key_admin_gara) === 0)
 	{
 		keyboard_admin_gara($chatId, "tastiera admin");
 		exit();
 	}
-	if (strpos($text, $key_admin_reset) === 0)
+	if (strcmp($text, $key_admin_reset) === 0)
 	{
 		//
 		exit();
 	}
-	if (strpos($text, $key_admin_registra_on) == 0)
+	if (strcmp($text, $key_admin_registra_on) == 0)
 	{
 		//////INVIARE KEYBOARD DI REGISTRAZIONE A TUTTI GLI UTENTI
 		
@@ -166,13 +166,13 @@ if ($tipo=="admin")
 		set_stato_corrente("registrazione_team");
 		exit();
 	}
-	if (strpos($text, $key_admin_registra_off) === 0)
+	if (strcmp($text, $key_admin_registra_off) === 0)
 	{
 		notifica_mittente($chatId, "registrazione dei team disabilitata");
 		set_stato_corrente("registrazione_team_off");
 		exit();
 	}
-	if (strpos($text, $key_admin_home) === 0)
+	if (strcmp($text, $key_admin_home) === 0)
 	{
 		keyboard_admin_menu($chatId, "tastiera admin");
 		exit();
