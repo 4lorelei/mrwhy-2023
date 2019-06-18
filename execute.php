@@ -60,19 +60,19 @@ $path_livello='livello.txt';
 // keyboard con emoticons
 $emo_uno = "\x31\xE2\x83\xA3";
 $emoji_uno=json_decode('"'.$emo_uno.'"');
-$key_uno=$emoji_uno." ";
+$key_uno=$emoji_uno."";
 
 $emo_due = "\x32\xE2\x83\xA3";
 $emoji_due=json_decode('"'.$emo_due.'"');
-$key_due=$emoji_due." ";
+$key_due=$emoji_due."";
 
 $emo_tre = "\x33\xE2\x83\xA3";
 $emoji_tre=json_decode('"'.$emo_tre.'"');
-$key_tre=$emoji_tre." ";
+$key_tre=$emoji_tre."";
 
 $emo_quattro = "\x34\xE2\x83\xA3";
 $emoji_quattro=json_decode('"'.$emo_quattro.'"');
-$key_quattro=$emoji_quattro." ";
+$key_quattro=$emoji_quattro."";
 
 $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
@@ -359,7 +359,7 @@ if ($push == "registrazione")
 }
 
 //esecuzione comandi immediati degli utenti standard
-if (strcmp($text, $key_uno) === 0)
+if (strcmp($text, $key_uno) == 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
