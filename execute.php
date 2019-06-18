@@ -366,7 +366,7 @@ if (strcmp($text, $key_uno) == 0)
 	if ($stato_sistema=="risposte_accettate")
 	{
 		$ret = invia_risposta($text, $chatId);
-		if ($ret)
+		if ($ret==true)
 			notifica_mittente($chatId, "è stata registrata la risposta 1");
 		else
 			notifica_mittente($chatId, "è già stata fornita una risposta!");
@@ -976,6 +976,8 @@ function invia_risposta($tasto, $chatId)
 		$piazzamento=0;
 	
 	$livello = get_livello();
+	if (sizeof($livello)==0)
+		$livello=0;
 	
 	if (isset($utenti[$chatId][$livello]))    //risposta già data
 		return false;
