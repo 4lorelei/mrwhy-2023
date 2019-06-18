@@ -821,6 +821,7 @@ function notifica_all($chatId, $notifica)
 	foreach ($utenti as $key => $value)
 	{
 		//Telegram prescrive una pausa di 1 sec ogni 30 notifiche 
+		$j=1;
 		if ($j % 20 == 0)
 		{
 			sleep(1);
@@ -837,7 +838,7 @@ function notifica_all($chatId, $notifica)
 		$cont++;
 	}
 	
-	notifica_mittente($chatId, "notificato a " . cont . " utenti");
+	notifica_mittente($chatId, "notificato a " . $cont . " utenti");
 
 	return true;
 }
