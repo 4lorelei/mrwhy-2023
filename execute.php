@@ -812,6 +812,7 @@ function invia_keyboard($nome)
 function notifica_all($chatId, $notifica)
 {
 	global $path_utenti;
+	global $botUrlMessage;
 	
 	
 	$myStatoJson = file_get_contents($path_utenti);
