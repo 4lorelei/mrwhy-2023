@@ -141,7 +141,7 @@ notifica_mittente($chatId, $tipo."***".$text."***");
 if ($tipo=="admin")
 {
 	$tastiera=keyboard_impostata($chatId);
-	if (tastiera=="none")
+	if ($tastiera=="none")
 		keyboard_admin_menu($chatId, "");
 	elseif ($tastiera=="team")
 		keyboard_admin_team($chatId, "");
