@@ -834,14 +834,15 @@ function invia_keyboard($nome, $chatId)
 	foreach ($utenti as $key => $value)
 	{
 		if ($nome=="registra_team"){
-			notifica_mittente($chatId, "notifico tastiera team a ". $key);
 			keyboard_registra_team($key, "");
+			notifica_mittente($chatId, "notificato tastiera team a ". $key. "esito ". $out);
 			$cont++;
 		}
 			
 		elseif ($nome=="gara"){
 			notifica_mittente($chatId, "notifico tastiera gara a ". $key);
-			keyboard_gara($key, "");
+			$out=keyboard_gara($key, "");
+			notifica_mittente($chatId, "notificato tastiera gara a ". $key. "esito ". $out);
 			$cont++;
 		}
 			
