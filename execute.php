@@ -269,8 +269,8 @@ if ($tipo=="admin")
 	// comandi della tastiera set
 	if (strcmp($text, $key_admin_risposte) === 0)
 	{
-		
-		notifica_mittente($chatId, "REGISTRA RISPOSTE");
+		set_automa("registra_risposte", $chatId);
+		notifica_mittente($chatId, "inserisci le soluzioni una di seguito all'alltra\nes: 2431223");
 		
 		exit();
 	}
@@ -296,7 +296,7 @@ if ($tipo=="admin")
 	// comando home
 	if (strcmp($text, $key_admin_home) === 0)
 	{
-		keyboard_admin_menu($chatId, "tastiera admin");
+		keyboard_admin_menu($chatId, "menu home");
 		exit();
 	}
 	
@@ -310,6 +310,12 @@ if ($tipo=="admin")
 			notifica_mittente($chatId, "l'id ".$text." non è registrato");
 		exit();
 	
+	}
+	elseif ($push == "registra_risposte")
+	{
+		registrazione_risposte($text);
+		notifica_mittente($chatId, "registrazione avvenuta correttamente");
+		exit();
 	}
 	
 	exit();
@@ -326,10 +332,9 @@ $stato_utente=stato_corrente_utente($chatId);
 
 if ($stato_utente=="non_registrato")
 {
-	keyboard_registra_team ($chatId, "tastiera");
+	keyboard_registra_team ($chatId, "menu di registrazione");
 }
 
-//keyboard_1_4 ($chatId, "4 tasti numerici!");
 
 //esecuzione comandi pendenti degli utenti standard
 $push=push_automa($chatId);
@@ -869,5 +874,21 @@ function notifica_all($chatId, $notifica)
 	
 	notifica_mittente($chatId, "notificato a " . $cont . " utenti");
 
+	return true;
+}
+
+function registrazione_risposte($risposte)
+{
+	global $path_soluzioni;
+		
+	for ($i=0; i<strlen($risposte); i++)
+	{
+		$r=substr($risposte, $i, 1);
+		$soluzioni[$i]=$r;
+	}
+	
+	$mySoluzioniJson = json_encode($soluzioni);
+	file_put_contents($path_soluzioni, $mySoluzioniJson, LOCK_EX);
+		
 	return true;
 }
