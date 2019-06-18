@@ -964,10 +964,13 @@ function invia_risposta($tasto, $chatId)
 		$piazzamento=0;
 	
 	$livello = get_livello();
+	
+	if (isset($utenti[$chatId][$livello]))    //risposta già data
+		return false;
+	
 	$esatta = risposta_esatta($livello);
 	if ($esatta == $risposta)
 	{
-		$ret=true;
 	    $utenti[$chatId][$livello]=$punteggio[$piazzamento];
 		$piazzamento++;
 		$myPiazzamentoJson = json_encode($piazzamento);
@@ -976,8 +979,10 @@ function invia_risposta($tasto, $chatId)
 	else
 	{
 		$utenti[$chatId][$livello]=0;
-		$ret=false;
 	}
+	
+	$myUtentiJson = json_encode($utenti);
+	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
 		
-	return $ret;
+	return true;
 }
