@@ -365,7 +365,7 @@ if (strcmp($text, $key_uno) == 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
-		$ret = invia_risposta($text);
+		$ret = invia_risposta($text, $chatId);
 		notifica_mittente($chatId, "è stata registrata la risposta 1");
 		exit();
 	}
@@ -379,7 +379,7 @@ if (strcmp($text, $key_due) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
-		$ret = invia_risposta($text);
+		$ret = invia_risposta($text, $chatId);
 		notifica_mittente($chatId, "è stata registrata la risposta 2");
 		exit();
 	}
@@ -393,7 +393,7 @@ if (strcmp($text, $key_tre) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
-		$ret = invia_risposta($text);
+		$ret = invia_risposta($text, $chatId);
 		notifica_mittente($chatId, "è stata registrata la risposta 3");
 		exit();
 	}
@@ -407,7 +407,7 @@ if (strcmp($text, $key_quattro) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
-		$ret = invia_risposta($text);
+		$ret = invia_risposta($text, $chatId);
 		notifica_mittente($chatId, "è stata registrata la risposta 4");
 		exit();
 	}
@@ -965,7 +965,8 @@ function invia_risposta($tasto, $chatId)
 	
 	$livello = get_livello();
 	$esatta = risposta_esatta($livello);
-	if ($esatta == $risposta){
+	if ($esatta == $risposta)
+	{
 		$ret=true;
 	    $utenti[$chatId][$livello]=$punteggio[$piazzamento];
 		$piazzamento++;
