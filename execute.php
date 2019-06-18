@@ -238,17 +238,17 @@ if ($tipo=="admin")
 	{
 		set_stato_corrente("risposte_accettate");
 		//notifica_all($chatId, "puoi rispondere alle domande!");
-		$cont=invia_keyboard("gara", $chatId);
-		notifica_mittente($chatId, "GOOOOO a " . $cont . " utenti" );
+		$cont=invia_keyboard("gara", "pulsantiera abilitata", $chatId);
+		notifica_mittente($chatId, "ABILITATI " . $cont . " utenti" );
 		
 		exit();
 	}
 	if (strcmp($text, $key_admin_pausa) === 0)
 	{
 		set_stato_corrente("pausa");
-		notifica_all($chatId, "STOP!");
-		invia_keyboard("gara",  $chatId);
-		notifica_mittente($chatId, "PAUSAAAA");
+		//notifica_all($chatId, "STOP!");
+		$cont=invia_keyboard("gara",  "pulsantiera disabilitata", $chatId);
+		notifica_mittente($chatId, "IN PAUSA " . $cont . " utenti" );
 		exit();
 	}
 	if (strcmp($text, $key_admin_anteprima) === 0)
@@ -443,10 +443,7 @@ function keyboard_registra_team ($chatId, $msg)
 	
 	$ch = curl_init();
 	
-	if ($msg=="")
-		$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&reply_markup=" . $reply_markup;
-	else
-		$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
 	
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
@@ -466,11 +463,8 @@ function keyboard_gara ($chatId, $msg)
 	$reply_markup='{"keyboard":[["'.$key_uno.'", "'.$key_due.'"],["'.$key_tre.'", "'.$key_quattro.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
-	
-	if ($msg=="")
-		$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&reply_markup=" . $reply_markup;
-	else
-		$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
 	
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
@@ -814,7 +808,7 @@ function elenca_team()
 	}
 
 }
-function invia_keyboard($nome, $chatId)
+function invia_keyboard($nome, $msg, $chatId)
 {
 	global $path_utenti;
 	
@@ -825,13 +819,13 @@ function invia_keyboard($nome, $chatId)
 	foreach ($utenti as $key => $value)
 	{
 		if ($nome=="registra_team"){
-			$out=keyboard_registra_team($key, "");
+			$out=keyboard_registra_team($key, $msg);
 			notifica_mittente($chatId, "notificato tastiera team a ". $key. "esito ". $out);
 			$cont++;
 		}
 			
 		elseif ($nome=="gara"){
-			$out=keyboard_gara($key, "");
+			$out=keyboard_gara($key, $msg);
 			notifica_mittente($chatId, "notificato tastiera gara a ". $key. "esito ". $out);
 			$cont++;
 		} 
