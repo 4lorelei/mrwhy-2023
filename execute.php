@@ -442,34 +442,18 @@ function keyboard_registra_team ($chatId, $msg)
 	$reply_markup='{"keyboard":[["'.$key_team.'", "'.$key_team_view.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
-	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	
+	if ($msg=="")
+		$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&reply_markup=" . $reply_markup;
+	else
+		$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 	
 	// read curl response
 	$output = curl_exec($ch);
 	curl_close($ch);
-	
-    return  $output;
-}
-
-function keyboard_garaXXX ($chatId, $msg, $mittente) 
-{
-	global $botUrlMessage;
-	global $key_team, $key_team_view;
-	
-	$reply_markup='{"keyboard":[["'.$key_team_view.'", "'.$key_team.'"]],"resize_keyboard":true}';
-	
-	$ch = curl_init();
-	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
-	curl_setopt($ch, CURLOPT_URL, $myUrl); 
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-	
-	// read curl response
-	$output = curl_exec($ch);
-	curl_close($ch);
-	
-	notifica_mittente($mittente, "tastiera gara ". $myUrl);
 	
     return  $output;
 }
@@ -482,7 +466,12 @@ function keyboard_gara ($chatId, $msg)
 	$reply_markup='{"keyboard":[["'.$key_uno.'", "'.$key_due.'"],["'.$key_tre.'", "'.$key_quattro.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
-	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	
+	if ($msg=="")
+		$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&reply_markup=" . $reply_markup;
+	else
+		$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 	
@@ -842,8 +831,7 @@ function invia_keyboard($nome, $chatId)
 		}
 			
 		elseif ($nome=="gara"){
-			notifica_mittente($chatId, "notifico tastiera gara a ". $key);
-			$out=keyboard_gara($key, "tatsiera abilitata");
+			$out=keyboard_gara($key, "");
 			notifica_mittente($chatId, "notificato tastiera gara a ". $key. "esito ". $out);
 			$cont++;
 		} 
