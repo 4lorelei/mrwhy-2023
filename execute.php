@@ -914,7 +914,7 @@ function risposta_esatta($livello)
 	global $path_soluzioni;
 		
 	$mySoluzioniJson = file_get_contents($path_soluzioni);
-	$soluzioni = json_decode($myLivelloJson,true);
+	$soluzioni = json_decode(mySoluzioniJson,true);
 	
 	return $soluzioni[(int)$livello];
 }
@@ -993,10 +993,10 @@ function invia_risposta($tasto, $chatId)
 	if (sizeof($livello)==0)
 		$livello=0;
 	
-	if (isset($utenti[$chatId][$livello]))    //risposta già data
+	if (isset($utenti[$chatId][(int)$livello]))    //risposta già data
 		return false;
 	
-	$esatta = risposta_esatta($livello);
+	$esatta = risposta_esatta((int)$livello);
 	    notifica_mittente($chatId, "attesa risposta esatta ".$esatta);
 	if ((int)$esatta == (int)$risposta)
 	{
