@@ -256,7 +256,8 @@ if ($tipo=="admin")
 	if (strcmp($text, $key_admin_pausa) === 0)
 	{
 		$livello = get_livello();
-		set_stato_corrente("pausa");		
+		set_stato_corrente("pausa");
+		notifica_punteggio();
 		$cont=invia_keyboard("gara",  "pulsantiera disabilitata", $chatId);
 		notifica_mittente($chatId, "livello: ".$livello . "\nin pausa " . $cont . " utenti" );
 		exit();
@@ -1013,5 +1014,39 @@ function invia_risposta($tasto, $chatId)
 	$myUtentiJson = json_encode($utenti);
 	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
 		
+	return true;
+}
+function notifica_punteggio()
+{
+	global $path_utenti;
+	global $botUrlMessage;
+	
+	
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	
+	$cont=0;
+	$livello=get_livello();
+	foreach ($utenti as $key => $value)
+	{
+		//Telegram prescrive una pausa di 1 sec ogni 30 notifiche 
+		$j=1;
+		if ($j % 20 == 0)
+		{
+			sleep(1);
+		}
+		$j++;
+		$ch = curl_init();
+		$notifica=$value[$livello];
+		$myUrl=$botUrlMessage . "?chat_id=" . $key . "&text=" . urlencode("punteggio ultima risposta: ".$notifica);
+		curl_setopt($ch, CURLOPT_URL, $myUrl); 
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+		
+		// read curl response
+		$output = curl_exec($ch);
+		curl_close($ch);
+		$cont++;
+	}
+
 	return true;
 }
