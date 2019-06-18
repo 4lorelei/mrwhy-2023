@@ -135,7 +135,7 @@ $tipo=tipo_utente($chatId);
 
 
 
-notifica_mittente($chatId, $tipo."***"$text."***");
+notifica_mittente($chatId, $tipo."***".$text."***");
 
 // gestione admin
 if ($tipo=="admin")
