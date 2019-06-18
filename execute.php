@@ -203,9 +203,10 @@ if ($tipo=="admin")
 	$push=push_automa($chatId);
 	if ($push == "elimina_team")
 	{
-		notifica_mittente($chatId, "Cancello ***".$text."***");
-		cancellazione_team($text);
-		notifica_mittente($chatId, "cancellazione del team ".$text." avvenuta correttamente");
+		if (cancellazione_team($text))
+			notifica_mittente($chatId, "cancellazione del team ".$text." avvenuta correttamente");
+		else
+			notifica_mittente($chatId, "l'id ".$text." non è registrato");
 		exit();
 	
 	}
@@ -321,7 +322,10 @@ if (strcmp($text, $key_team) === 0)
 if (strcmp($text, $key_team_view) === 0)
 {
 	$nome_team=visualizza_team($chatId);
-	notifica_mittente($chatId, "il tuo team è: ".$nome_team);
+	if ($nome_team=="")
+		notifica_mittente($chatId, "team non registrato");
+	else
+		notifica_mittente($chatId, "il tuo team è: ".$nome_team);
 	exit();
 }
 else
@@ -530,12 +534,17 @@ function cancellazione_team($chatId)
 	//lettura del file dell'automa a stati
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
-	unset($utenti[$chatId]);
-	
-	$myUtentiJson = json_encode($utenti);
-	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+	if (isset($utenti[$chatId]))
+	{
+		unset($utenti[$chatId]);
+		$myUtentiJson = json_encode($utenti);
+		file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
 		
-	return true;
+		return true;
+	}
+	else
+		return false;
+	
 }
 
 function visualizza_team($chatId)
@@ -547,7 +556,7 @@ function visualizza_team($chatId)
 	if (isset($utenti[$chatId]))
 		return $utenti[$chatId];
 	else
-		return "team non registrato";
+		return "";
 
 }
 
