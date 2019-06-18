@@ -163,7 +163,7 @@ $tipo=tipo_utente($chatId);
 
 
 
-notifica_mittente($chatId, $tipo."****".$text."***");
+notifica_mittente($chatId, $tipo."***".$text."***");
 
 // gestione admin
 if ($tipo=="admin")
@@ -171,12 +171,14 @@ if ($tipo=="admin")
 	$tastiera=keyboard_impostata($chatId);
 	if ($tastiera=="none")
 		keyboard_admin_menu($chatId, "menu");
+	/*
 	elseif ($tastiera=="team")
-		keyboard_admin_team($chatId, "");
+		keyboard_admin_team($chatId, "team");
 	elseif ($tastiera=="registrazione")
-		keyboard_admin_registrazione($chatId, "");
+		keyboard_admin_registrazione($chatId, "registrazione");
 	elseif ($tastiera=="menu")
-		keyboard_admin_menu($chatId, "");
+		keyboard_admin_menu($chatId, "menu");
+	*/
 		
 	
 	//esecuzione comandi immediati di admin
@@ -184,22 +186,22 @@ if ($tipo=="admin")
 	// tastiere di admin
 	if (strcmp($text, $key_admin_registra) === 0)
 	{
-		keyboard_admin_registrazione($chatId, "tastiera admin");
+		keyboard_admin_registrazione($chatId, "menu registrazione");
 		exit();
 	}
 	if (strcmp($text, $key_admin_team) === 0)
 	{
-		keyboard_admin_team($chatId, "tastiera admin team");
+		keyboard_admin_team($chatId, "menu team");
 		exit();
 	}
 	if (strcmp($text, $key_admin_gara) === 0)
 	{
-		keyboard_admin_gara($chatId, "tastiera admin gara");
+		keyboard_admin_gara($chatId, "menu gara");
 		exit();
 	}
 	if (strcmp($text, $key_admin_set) === 0)
 	{
-		keyboard_admin_set($chatId, "tastiera admin set");
+		keyboard_admin_set($chatId, "menu set");
 		exit();
 	}
 	
@@ -820,13 +822,13 @@ function invia_keyboard($nome, $msg, $chatId)
 	{
 		if ($nome=="registra_team"){
 			$out=keyboard_registra_team($key, $msg);
-			notifica_mittente($chatId, "notificato tastiera team a ". $key. "esito ". $out);
+			//notifica_mittente($chatId, "notificato tastiera team a ". $key. "esito ". $out);
 			$cont++;
 		}
 			
 		elseif ($nome=="gara"){
 			$out=keyboard_gara($key, $msg);
-			notifica_mittente($chatId, "notificato tastiera gara a ". $key. "esito ". $out);
+			//notifica_mittente($chatId, "notificato tastiera gara a ". $key. "esito ". $out);
 			$cont++;
 		} 
 			
