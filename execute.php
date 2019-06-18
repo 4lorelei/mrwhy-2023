@@ -453,7 +453,7 @@ function keyboard_registra_team ($chatId, $msg)
     return  $output;
 }
 
-function keyboard_gara ($chatId, $msg, $mittente) 
+function keyboard_garaXXX ($chatId, $msg, $mittente) 
 {
 	global $botUrlMessage;
 	global $key_team, $key_team_view;
@@ -474,7 +474,7 @@ function keyboard_gara ($chatId, $msg, $mittente)
     return  $output;
 }
 
-function keyboard_garaXXX ($chatId, $msg) 
+function keyboard_gara ($chatId, $msg) 
 {
 	global $botUrlMessage;
 	global $key_uno, $key_due, $key_tre, $key_quattro;
@@ -843,7 +843,7 @@ function invia_keyboard($nome, $chatId)
 			
 		elseif ($nome=="gara"){
 			notifica_mittente($chatId, "notifico tastiera gara a ". $key);
-			$out=keyboard_gara($key, "tatsiera abilitata", $chatId);
+			$out=keyboard_gara($key, "tatsiera abilitata");
 			notifica_mittente($chatId, "notificato tastiera gara a ". $key. "esito ". $out);
 			$cont++;
 		} 
