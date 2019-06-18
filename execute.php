@@ -237,7 +237,7 @@ if ($tipo=="admin")
 	if (strcmp($text, $key_admin_go) === 0)
 	{
 		set_stato_corrente("risposte_accettate");
-		notifica_all($chatId, "puoi rispondere alle domande!");
+		//notifica_all($chatId, "puoi rispondere alle domande!");
 		invia_keyboard("gara");
 		notifica_mittente($chatId, "GOOOOO");
 		
