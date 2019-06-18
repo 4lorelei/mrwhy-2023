@@ -366,7 +366,10 @@ if (strcmp($text, $key_uno) == 0)
 	if ($stato_sistema=="risposte_accettate")
 	{
 		$ret = invia_risposta($text, $chatId);
-		notifica_mittente($chatId, "è stata registrata la risposta 1");
+		if ($ret)
+			notifica_mittente($chatId, "è stata registrata la risposta 1");
+		else
+			notifica_mittente($chatId, "è già stata fornita una risposta!");
 		exit();
 	}
 	else
@@ -380,7 +383,10 @@ if (strcmp($text, $key_due) === 0)
 	if ($stato_sistema=="risposte_accettate")
 	{
 		$ret = invia_risposta($text, $chatId);
-		notifica_mittente($chatId, "è stata registrata la risposta 2");
+		if ($ret)
+			notifica_mittente($chatId, "è stata registrata la risposta 2");
+		else
+			notifica_mittente($chatId, "è già stata fornita una risposta!");
 		exit();
 	}
 	else
@@ -394,7 +400,10 @@ if (strcmp($text, $key_tre) === 0)
 	if ($stato_sistema=="risposte_accettate")
 	{
 		$ret = invia_risposta($text, $chatId);
-		notifica_mittente($chatId, "è stata registrata la risposta 3");
+		if ($ret)
+			notifica_mittente($chatId, "è stata registrata la risposta 3");
+		else
+			notifica_mittente($chatId, "è già stata fornita una risposta!");
 		exit();
 	}
 	else
@@ -408,7 +417,10 @@ if (strcmp($text, $key_quattro) === 0)
 	if ($stato_sistema=="risposte_accettate")
 	{
 		$ret = invia_risposta($text, $chatId);
-		notifica_mittente($chatId, "è stata registrata la risposta 4");
+		if ($ret)
+			notifica_mittente($chatId, "è stata registrata la risposta 4");
+		else
+			notifica_mittente($chatId, "è già stata fornita una risposta!");
 		exit();
 	}
 	else
