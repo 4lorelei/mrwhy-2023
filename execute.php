@@ -266,6 +266,33 @@ if ($tipo=="admin")
 		exit();
 	}
 	
+	// comandi della tastiera set
+	if (strcmp($text, $key_admin_risposte) === 0)
+	{
+		
+		notifica_mittente($chatId, "REGISTRA RISPOSTE");
+		
+		exit();
+	}
+	if (strcmp($text, $key_admin_livello) === 0)
+	{
+		
+		notifica_mittente($chatId, "IMPOSTA LIVELLO CORRENTE");
+		exit();
+	}
+	if (strcmp($text, $key_admin_verifica) === 0)
+	{
+		
+		notifica_mittente($chatId, "VERIFICA RISPOSTE, LIVELLO CORRENTE");
+		exit();
+	}
+	if (strcmp($text, $key_admin_reset) === 0)
+	{
+		
+		notifica_mittente($chatId, "AZZERO TEAM, E LIVELLO");
+		exit();
+	}
+	
 	// comando home
 	if (strcmp($text, $key_admin_home) === 0)
 	{
