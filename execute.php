@@ -378,10 +378,10 @@ function keyboard_registra_team ($chatId, $msg)
     return  $output;
 }
 
-
+/*
 function keyboard_admin_gara ($chatId, $msg) 
 {
-	/*
+	
 	global $botUrlMessage;
 	global $key_admin_go, $key_admin_pausa, $key_admin_anteprima, $key_admin_classifica, $key_admin_home;
 
@@ -398,11 +398,11 @@ function keyboard_admin_gara ($chatId, $msg)
 	curl_close($ch);
 	
 	set_keyboard($chatId, "gara");
-	*/
+	
 	
     return  $output;
 }
-
+*/
 
 function keyboard_admin_menu($chatId, $msg)
 {
