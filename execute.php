@@ -244,6 +244,8 @@ if ($tipo=="admin")
 	{
 		$livello = next_livello();
 		set_stato_corrente("risposte_accettate");
+		reset_piazzamento();
+		
 		$cont=invia_keyboard("gara", "pulsantiera abilitata", $chatId);
 		notifica_mittente($chatId, "livello: ".$livello . "\nabilitati " . $cont . " utenti" );
 		
@@ -254,7 +256,7 @@ if ($tipo=="admin")
 	if (strcmp($text, $key_admin_pausa) === 0)
 	{
 		$livello = get_livello();
-		set_stato_corrente("pausa");
+		set_stato_corrente("pausa");		
 		$cont=invia_keyboard("gara",  "pulsantiera disabilitata", $chatId);
 		notifica_mittente($chatId, "livello: ".$livello . "\nin pausa " . $cont . " utenti" );
 		exit();
@@ -276,7 +278,7 @@ if ($tipo=="admin")
 	if (strcmp($text, $key_admin_risposte) === 0)
 	{
 		set_automa("registra_risposte", $chatId);
-		notifica_mittente($chatId, "inserisci le soluzioni una di seguito all'alltra\nes: 2431223");
+		notifica_mittente($chatId, "inserisci le soluzioni una di seguito all'altra, ad es: 2431223");
 		
 		exit();
 	}
@@ -911,11 +913,10 @@ function risposta_esatta($livello)
 {
 	global $path_soluzioni;
 		
-		
 	$mySoluzioniJson = file_get_contents($path_soluzioni);
 	$soluzioni = json_decode($myLivelloJson,true);
 	
-	return $soluzioni[$livello];
+	return $soluzioni[(int)$livello];
 }
 
 function next_livello()
@@ -946,6 +947,17 @@ function get_livello()
 	$myLivelloJson = file_get_contents($path_livello);
 	$livello = json_decode($myLivelloJson,true);
 	return $livello;
+}
+
+
+function reset_piazzamento()
+{
+	global $path_piazzamento;
+	
+	$piazzamento=0;
+	$myPiazzamentoJson = json_encode($piazzamento);
+	file_put_contents($path_piazzamento, $myPiazzamentoJson, LOCK_EX);
+	return true;
 }
 
 function invia_risposta($tasto, $chatId)
