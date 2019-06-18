@@ -161,6 +161,22 @@ if ($tipo=="admin")
 		//
 		exit();
 	}
+	if (strpos($text, $key_admin_registrazione_on) === 0)
+	{
+		//////INVIARE KEYBOARD DI REGISTRAZIONE A TUTTI GLI UTENTI
+		set_stato_corrente("registrazione_team");
+		exit();
+	}
+	if (strpos($text, $key_admin_registrazione_off) === 0)
+	{
+		set_stato_corrente("registrazione_team_off");
+		exit();
+	}
+	if (strpos($text, $key_admin_home) === 0)
+	{
+		keyboard_admin_menu($chatId, "tastiera admin");
+		exit();
+	}
 	
 
 	
@@ -170,7 +186,7 @@ if ($tipo=="admin")
 
 // gestione utente standard
 
-//lettura dello stato corrente del bot (registrazione_team, risposte_accettate, pausa, gara_terminata)
+//lettura dello stato corrente del bot (registrazione_team, registrazione_team_off, risposte_accettate, pausa, gara_terminata)
 $stato_sistema=stato_corrente();
 
 //stato dell'utente (registrato o non_registrato)
@@ -416,6 +432,16 @@ function stato_corrente()
 		$stato="registrazione_team";
 	
 	return $stato;
+}
+
+function set_stato_corrente($nome)
+{
+	global $path_stato;
+	
+	$myStatoJson = json_encode($nome);
+	file_put_contents($path_stato, $myStatoJson, LOCK_EX);
+		
+	return true;
 }
 
 function stato_corrente_utente($chatId)
