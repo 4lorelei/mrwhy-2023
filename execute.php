@@ -159,12 +159,12 @@ if ($tipo=="admin")
 	}
 	if (strcmp($text, $key_admin_team) === 0)
 	{
-		keyboard_admin_team($chatId, "tastiera admin");
+		keyboard_admin_team($chatId, "tastiera admin team");
 		exit();
 	}
 	if (strcmp($text, $key_admin_gara) === 0)
 	{
-		keyboard_admin_gara($chatId, "tastiera admin");
+		keyboard_admin_gara($chatId, "tastiera admin gara");
 		exit();
 	}
 	if (strcmp($text, $key_admin_reset) === 0)
@@ -174,8 +174,6 @@ if ($tipo=="admin")
 	}
 	if (strcmp($text, $key_admin_registra_on) == 0)
 	{
-		//////INVIARE KEYBOARD DI REGISTRAZIONE A TUTTI GLI UTENTI
-		
 		notifica_mittente($chatId, "registrazione dei team abilitata");
 		set_stato_corrente("registrazione_team");
 		exit();
@@ -199,6 +197,7 @@ if ($tipo=="admin")
 		notifica_mittente($chatId, "inserisci l'id del team da eliminare");
 		exit();
 	}
+	
 	
 	if (strcmp($text, $key_admin_home) === 0)
 	{
@@ -363,7 +362,7 @@ function keyboard_registra_team ($chatId, $msg)
 
 
 
-function keyboard_1_4 ($chatId, $msg) 
+function keyboard_gara ($chatId, $msg) 
 {
 	global $botUrlMessage;
 	global $key_uno, $key_due, $key_tre, $key_quattro;
@@ -429,6 +428,27 @@ function keyboard_admin_registrazione($chatId, $msg)
 }
 
 function keyboard_admin_team($chatId, $msg)
+{
+	global $botUrlMessage;
+	global $key_admin_team_visualizza, $key_admin_team_elimina, $key_admin_home;
+	
+
+	$reply_markup='{"keyboard":[["'.$key_admin_team_visualizza.'","'.$key_admin_team_elimina.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
+	
+	$ch = curl_init();
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	curl_setopt($ch, CURLOPT_URL, $myUrl); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	
+	// read curl response
+	$output = curl_exec($ch);
+	curl_close($ch);
+	
+	set_keyboard($chatId, "team");
+	
+    return  $output;
+}
+function keyboard_admin_gara($chatId, $msg)
 {
 	global $botUrlMessage;
 	global $key_admin_team_visualizza, $key_admin_team_elimina, $key_admin_home;
@@ -667,5 +687,25 @@ function elenca_team()
 		}
 		return $elenco;
 	}
+
+}
+function invia_keyboard($nome)
+{
+	global $path_utenti;
+	
+	
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	$cont=0;
+	foreach ($utenti as $key => $value)
+	{
+		if ($nome=="registra_team")
+			keyboard_registra_team($key, "");
+		elseif ($nome=="gara")
+			keyboard_gara($key, "");
+		$cont++;
+    }
+	
+	return cont;
 
 }
