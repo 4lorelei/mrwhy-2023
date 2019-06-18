@@ -378,8 +378,7 @@ function keyboard_registra_team ($chatId, $msg)
     return  $output;
 }
 
-function pippone ($chatId, $msg) 
-//function keyboard_admin_gara ($chatId, $msg) 
+function keyboard_admin_gara ($chatId, $msg) 
 {
 	
 	global $botUrlMessage;
@@ -468,27 +467,7 @@ function keyboard_admin_team($chatId, $msg)
 	
     return  $output;
 }
-function keyboard_admin_gara($chatId, $msg)
-{
-	global $botUrlMessage;
-	global $key_admin_team_visualizza, $key_admin_team_elimina, $key_admin_home;
-	
 
-	$reply_markup='{"keyboard":[["'.$key_admin_team_visualizza.'","'.$key_admin_team_elimina.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
-	
-	$ch = curl_init();
-	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
-	curl_setopt($ch, CURLOPT_URL, $myUrl); 
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-	
-	// read curl response
-	$output = curl_exec($ch);
-	curl_close($ch);
-	
-	set_keyboard($chatId, "team");
-	
-    return  $output;
-}
 
 function set_automa($comando, $id)
 {
