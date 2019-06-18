@@ -118,6 +118,24 @@ $emo_admin_team_elimina = "\xF0\x9F\x9B\xA1";
 $emoji_admin_team_elimina=json_decode('"'.$emo_admin_team_elimina.'"');
 $key_admin_team_elimina=$emoji_admin_team_elimina." elimina";
 
+
+$emo_admin_go = "\xF0\x9F\x9B\xA1";
+$emoji_admin_go=json_decode('"'.$emo_admin_go.'"');
+$key_admin_go=$emoji_admin_go." go";
+
+$emo_admin_pausa = "\xF0\x9F\x9B\xA1";
+$emoji_admin_pausa=json_decode('"'.$emo_admin_pausa.'"');
+$key_admin_pausa=$emoji_admin_pausa." pausa";
+
+$emo_admin_classifica = "\xF0\x9F\x9B\xA1";
+$emoji_admin_classifica=json_decode('"'.$emo_admin_classifica.'"');
+$key_admin_classifica=$emoji_admin_classifica." classifica";
+
+$emo_admin_anteprima = "\xF0\x9F\x9B\xA1";
+$emoji_admin_anteprima=json_decode('"'.$emo_admin_anteprima.'"');
+$key_admin_anteprima=$emoji_admin_anteprima." anteprima";
+
+
 $emo_admin_home = "\xF0\x9F\x9B\xA1";
 $emoji_admin_home=json_decode('"'.$emo_admin_home.'"');
 $key_admin_home=$emoji_admin_home." home";
@@ -362,12 +380,12 @@ function keyboard_registra_team ($chatId, $msg)
 
 
 
-function keyboard_gara ($chatId, $msg) 
+function keyboard_admin_gara ($chatId, $msg) 
 {
 	global $botUrlMessage;
-	global $key_uno, $key_due, $key_tre, $key_quattro;
-	
-	$reply_markup='{"keyboard":[["'.$key_uno.'","'.$key_due.'"],["'.$key_tre.'","'. $key_quattro. '"]],"resize_keyboard":true}';
+	global $key_admin_go, $key_admin_pausa, $key_admin_anteprima, $key_admin_classifica, $key_admin_home;
+
+	$reply_markup='{"keyboard":[["'.$key_admin_go.'","'.$key_admin_pausa.'"],["'.$key_admin_anteprima.'","'. $key_admin_classifica. '"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
@@ -378,6 +396,8 @@ function keyboard_gara ($chatId, $msg)
 	$output = curl_exec($ch);
 	curl_close($ch);
 	
+	set_keyboard($chatId, "gara");
+	
     return  $output;
 }
 
@@ -386,8 +406,6 @@ function keyboard_admin_menu($chatId, $msg)
 {
 	global $botUrlMessage;
 	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_reset;
-
-notifica_mittente($chatId, "imposto tastiera menu ");
 
 	$reply_markup='{"keyboard":[["'.$key_admin_registra.'","'.$key_admin_team.'"],["'.$key_admin_gara.'","'. $key_admin_reset. '"]],"resize_keyboard":true}';
 	
