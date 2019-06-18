@@ -888,7 +888,9 @@ function registrazione_risposte($risposte)
 		$r=substr($risposte, $i, 1);
 		$soluzioni[$i]=$r;
 	}
-	
+	$soluzioni="";
+	$soluzioni[0]="33";
+	$soluzioni[1]="44";
 	$mySoluzioniJson = json_encode($soluzioni);
 	file_put_contents($path_soluzioni, $mySoluzioniJson, LOCK_EX);
 		
