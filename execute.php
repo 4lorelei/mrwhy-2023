@@ -678,7 +678,7 @@ function stato_corrente_utente($chatId)
 	
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
-	if (isset($utenti[$chatId]))
+	if (isset($utenti[$chatId]["nome"]))
 		return "registrato";
 	else
 		return "non_registrato";
@@ -691,7 +691,7 @@ function registrazione_team($chatId, $text)
 	//lettura del file dell'automa a stati
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
-	$utenti[$chatId] = $text;
+	$utenti[$chatId]["nome"] = $text;
 	
 	$myUtentiJson = json_encode($utenti);
 	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
@@ -706,9 +706,9 @@ function cancellazione_team($chatId)
 	//lettura del file dell'automa a stati
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
-	if (isset($utenti[$chatId]))
+	if (isset($utenti[$chatId]["nome"]))
 	{
-		unset($utenti[$chatId]);
+		unset($utenti[$chatId]["nome"]);
 		$myUtentiJson = json_encode($utenti);
 		file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
 		
@@ -725,8 +725,8 @@ function visualizza_team($chatId)
 	
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
-	if (isset($utenti[$chatId]))
-		return $utenti[$chatId];
+	if (isset($utenti[$chatId]["nome"]))
+		return $utenti[$chatId]["nome"];
 	else
 		return "";
 
@@ -827,7 +827,7 @@ function elenca_team()
 	{
 		foreach ($utenti as $key => $value)
 		{
-			$elenco=$elenco . $emoji_team . " " . $value . ":" . $key . "\n";
+			$elenco=$elenco . $emoji_team . " " . $value["nome"] . ": " . $key . "\n";
 		}
 		return $elenco;
 	}
