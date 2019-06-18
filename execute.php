@@ -914,7 +914,7 @@ function risposta_esatta($livello)
 	global $path_soluzioni;
 		
 	$mySoluzioniJson = file_get_contents($path_soluzioni);
-	$soluzioni = json_decode(mySoluzioniJson,true);
+	$soluzioni = json_decode($mySoluzioniJson,true);
 	
 	return $soluzioni[(int)$livello];
 }
