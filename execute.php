@@ -96,7 +96,7 @@ $key_admin_team=$emoji_admin_team." team";
 
 $emo_admin_gara = "\xF0\x9F\x9B\xA1";
 $emoji_admin_gara=json_decode('"'.$emo_admin_gara.'"');
-$key_admin_gara=$emoji_admin_gara." garaX";
+$key_admin_gara=$emoji_admin_gara." gara";
 
 $emo_admin_reset = "\xF0\x9F\x9B\xA1";
 $emoji_admin_reset=json_decode('"'.$emo_admin_reset.'"');
@@ -188,8 +188,9 @@ if ($tipo=="admin")
 	}
 	if (strcmp($text, $key_admin_team_visualizza) === 0)
 	{
-		notifica_mittente($chatId, "visualizza team");
-        // LISTARE TEAM
+		$elenco=elenca_team();
+		notifica_mittente($chatId, $elenco);
+		
 		exit();
 	}
 	if (strcmp($text, $key_admin_team_elimina) === 0)
@@ -648,4 +649,23 @@ function keyboard_impostata($chatId)
 	}
 	else
 		return $nome;
+}
+function elenca_team()
+{
+	global $path_utenti;
+	global $emoji_team;
+	
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	if (sizeof($utenti)==0)
+		return "nessun team registrato";
+	else
+	{
+		foreach ($utenti as $key => $value)
+		{
+			$elenco=$elenco . $emoji_team . " " . $value . ":" . $key . "\n";
+		}
+		return $elenco;
+	}
+
 }
