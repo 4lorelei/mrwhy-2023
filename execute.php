@@ -205,7 +205,7 @@ if ($tipo=="admin")
 	}
 	if (strcmp($text, $key_admin_set) === 0)
 	{
-		keyboard_admin_gara($chatId, "tastiera admin set");
+		keyboard_admin_set($chatId, "tastiera admin set");
 		exit();
 	}
 	
