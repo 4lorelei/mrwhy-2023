@@ -238,7 +238,7 @@ if ($tipo=="admin")
 	{
 		set_stato_corrente("risposte_accettate");
 		//notifica_all($chatId, "puoi rispondere alle domande!");
-		$cont=invia_keyboard("gara");
+		$cont=invia_keyboard("gara", $chatId);
 		notifica_mittente($chatId, "GOOOOO a " . $cont . " utenti" );
 		
 		exit();
@@ -247,7 +247,7 @@ if ($tipo=="admin")
 	{
 		set_stato_corrente("pausa");
 		notifica_all($chatId, "STOP!");
-		invia_keyboard("gara");
+		invia_keyboard("gara",  $chatId);
 		notifica_mittente($chatId, "PAUSAAAA");
 		exit();
 	}
@@ -823,7 +823,7 @@ function elenca_team()
 	}
 
 }
-function invia_keyboard($nome)
+function invia_keyboard($nome, $chatId)
 {
 	global $path_utenti;
 	
@@ -834,11 +834,13 @@ function invia_keyboard($nome)
 	foreach ($utenti as $key => $value)
 	{
 		if ($nome=="registra_team"){
+			notifica_mittente($chatId, "notifico tastiera team a ". $key);
 			keyboard_registra_team($key, "");
 			$cont++;
 		}
 			
 		elseif ($nome=="gara"){
+			notifica_mittente($chatId, "notifico tastiera gara a ". $key);
 			keyboard_gara($key, "");
 			$cont++;
 		}
