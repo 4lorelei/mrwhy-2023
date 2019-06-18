@@ -137,9 +137,6 @@ if ($tipo=="admin")
 		keyboard_admin_menu($chatId, "tastiera admin");
 	}
 	
-	
-	
-		global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_reset;
 	//esecuzione comandi immediati degli utenti standard
 	if (strpos($text, $key_admin_registra) === 0)
 	{
@@ -161,7 +158,7 @@ if ($tipo=="admin")
 		//
 		exit();
 	}
-	if (strpos($text, $key_admin_registra_on) === 0)
+	if (strpos($text, $key_admin_registra_on) == 0)
 	{
 		//////INVIARE KEYBOARD DI REGISTRAZIONE A TUTTI GLI UTENTI
 		
