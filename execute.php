@@ -54,6 +54,7 @@ $path_stato='stato.txt';
 $path_utenti='utenti.txt';
 $path_keyboard='keyboard.txt';
 $path_soluzioni='soluzioni.txt';
+$path_livello='livello.txt';
 
 
 // keyboard con emoticons
@@ -250,9 +251,10 @@ if ($tipo=="admin")
 	}
 	if (strcmp($text, $key_admin_pausa) === 0)
 	{
+		$livello = get_livello();
 		set_stato_corrente("pausa");
 		$cont=invia_keyboard("gara",  "pulsantiera disabilitata", $chatId);
-		notifica_mittente($chatId, "IN PAUSA " . $cont . " utenti" );
+		notifica_mittente($chatId, "livello: ".$livello . "\nin pausa " . $cont . " utenti" );
 		exit();
 	}
 	if (strcmp($text, $key_admin_anteprima) === 0)
