@@ -429,7 +429,7 @@ function stato_corrente()
 	$stato = json_decode($myStatoJson,true);
 	
 	if ($stato == "")
-		$stato="registrazione_team";
+		$stato="registrazione_team_off";
 	
 	return $stato;
 }
