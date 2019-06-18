@@ -164,6 +164,8 @@ if ($tipo=="admin")
 	if (strpos($text, $key_admin_registrazione_on) === 0)
 	{
 		//////INVIARE KEYBOARD DI REGISTRAZIONE A TUTTI GLI UTENTI
+		
+		notifica_mittente($chatId, "registrazione dei team abilitata");
 		set_stato_corrente("registrazione_team");
 		exit();
 	}
