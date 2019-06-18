@@ -239,17 +239,18 @@ if ($tipo=="admin")
 	// comandi della tastiera gara
 	if (strcmp($text, $key_admin_go) === 0)
 	{
+		$livello = next_livello();
 		set_stato_corrente("risposte_accettate");
-		//notifica_all($chatId, "puoi rispondere alle domande!");
 		$cont=invia_keyboard("gara", "pulsantiera abilitata", $chatId);
-		notifica_mittente($chatId, "ABILITATI " . $cont . " utenti" );
+		notifica_mittente($chatId, "livello: ".$livello . "\nabilitati " . $cont . " utenti" );
+		
+		notifica_all("livello ".$livello);
 		
 		exit();
 	}
 	if (strcmp($text, $key_admin_pausa) === 0)
 	{
 		set_stato_corrente("pausa");
-		//notifica_all($chatId, "STOP!");
 		$cont=invia_keyboard("gara",  "pulsantiera disabilitata", $chatId);
 		notifica_mittente($chatId, "IN PAUSA " . $cont . " utenti" );
 		exit();
@@ -843,7 +844,7 @@ function invia_keyboard($nome, $msg, $chatId)
 	return $cont;
 
 }
-function notifica_all($chatId, $notifica)
+function notifica_all($notifica)
 {
 	global $path_utenti;
 	global $botUrlMessage;
@@ -872,8 +873,6 @@ function notifica_all($chatId, $notifica)
 		curl_close($ch);
 		$cont++;
 	}
-	
-	notifica_mittente($chatId, "notificato a " . $cont . " utenti");
 
 	return true;
 }
@@ -891,4 +890,33 @@ function registrazione_risposte($risposte)
 	file_put_contents($path_soluzioni, $mySoluzioniJson, LOCK_EX);
 		
 	return true;
+}
+function next_livello()
+{
+	global $path_livello;
+	
+	$myLivelloJson = file_get_contents($path_livello);
+	$livello = json_decode($myLivelloJson,true);
+	if (sizeof($livello) == 0 )
+	{
+		$livello=1;
+		$myLivelloJson = json_encode($livello);
+		file_put_contents($path_livello, $myLivelloJson, LOCK_EX);
+	}
+	else
+	{
+		$livello++;
+		$myLivelloJson = json_encode($livello);
+		file_put_contents($path_livello, $myLivelloJson, LOCK_EX);
+	}
+	return $livello;
+}
+
+function get_livello()
+{
+	global $path_livello;
+	
+	$myLivelloJson = file_get_contents($path_livello);
+	$livello = json_decode($myLivelloJson,true);
+	return $livello;
 }
