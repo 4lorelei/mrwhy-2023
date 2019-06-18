@@ -363,7 +363,7 @@ if (strcmp($text, $key_uno) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
-		registrazione_risposta($chatId, "1");
+		$ret = invia_risposta($text);
 		notifica_mittente($chatId, "è stata registrata la risposta 1");
 		exit();
 	}
@@ -377,7 +377,7 @@ if (strcmp($text, $key_due) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
-		registrazione_risposta($chatId, "2");
+		$ret = invia_risposta($text);
 		notifica_mittente($chatId, "è stata registrata la risposta 2");
 		exit();
 	}
@@ -391,7 +391,7 @@ if (strcmp($text, $key_tre) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
-		registrazione_risposta($chatId, "3");
+		$ret = invia_risposta($text);
 		notifica_mittente($chatId, "è stata registrata la risposta 3");
 		exit();
 	}
@@ -405,7 +405,7 @@ if (strcmp($text, $key_quattro) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
-		registrazione_risposta($chatId, "4");
+		$ret = invia_risposta($text);
 		notifica_mittente($chatId, "è stata registrata la risposta 4");
 		exit();
 	}
@@ -893,6 +893,17 @@ function registrazione_risposte($risposte)
 		
 	return true;
 }
+function risposta_esatta($livello)
+{
+	global $path_soluzioni;
+		
+		
+	$mySoluzioniJson = file_get_contents($path_soluzioni);
+	$soluzioni = json_decode($myLivelloJson,true);
+	
+	return $soluzioni[$livello];
+}
+
 function next_livello()
 {
 	global $path_livello;
@@ -921,4 +932,31 @@ function get_livello()
 	$myLivelloJson = file_get_contents($path_livello);
 	$livello = json_decode($myLivelloJson,true);
 	return $livello;
+}
+
+function invia_risposta($tasto)
+{
+	global $key_uno, $key_due, $key_tre, $key_quattro;
+	
+	if ($tasto==$key_uno) 
+		$risposta="1";
+	elseif ($tasto==$key_due) 
+		$risposta="2";
+	elseif ($tasto==$key_tre) 
+		$risposta="3";
+	elseif ($tasto==$key_quattro) 
+		$risposta="4";
+	
+	$livello = get_livello();
+	$esatta = risposta_esatta($livello);
+	if ($esatta == $risposta){
+		$ret=true;
+		
+	}
+	else
+	{
+		$ret=false;
+	}
+		
+	return $ret;
 }
