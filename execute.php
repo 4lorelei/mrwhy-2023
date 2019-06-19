@@ -1041,7 +1041,7 @@ function notifica_punteggio()
 	
 	foreach ($utenti as $key => $value)
 	{
-		$all=$all . $emo_admin_team . " ". $value["nome"].":  ".$value[$livello]."\n";
+		$all=$all . $emoji_admin_team . " ". $value["nome"].":  ".$value[$livello]."\n";
 	}
 	
 	foreach ($utenti as $key => $value)
