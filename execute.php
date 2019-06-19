@@ -717,7 +717,8 @@ function cancellazione_team($chatId)
 	$utenti = json_decode($myStatoJson,true);
 	if (isset($utenti[$chatId]["nome"]))
 	{
-		unset($utenti[$chatId]["nome"]);
+		//unset($utenti[$chatId]["nome"]);
+		unset($utenti[$chatId]);
 		$myUtentiJson = json_encode($utenti);
 		file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
 		
@@ -1108,3 +1109,14 @@ function notifica_classifica()
 	return "classifica generale\n\n".$all;
 }
 
+/*
+function removeElementWithValue($array, $key, $value){
+     foreach($array as $subKey => $subArray){
+          if($subArray[$key] == $value){
+               unset($array[$subKey]);
+          }
+     }
+     return $array;
+}
+$array = removeElementWithValue($array, "year", 2011);
+*/
