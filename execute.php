@@ -192,11 +192,6 @@ if ($tipo=="admin")
 	//esecuzione comandi immediati di admin
 	
 	// tastiere di admin
-	if (strcmp($text, $key_admin_registra) === 0)
-	{
-		keyboard_admin_registrazione($chatId, "menu registrazione");
-		exit();
-	}
 	if (strcmp($text, $key_admin_team) === 0)
 	{
 		keyboard_admin_team($chatId, "menu team");
@@ -213,8 +208,7 @@ if ($tipo=="admin")
 		exit();
 	}
 	
-	
-	// comandi della tastiera registrazione
+	// comandi della tastiera team
 	if (strcmp($text, $key_admin_registra_on) == 0)
 	{
 		notifica_mittente($chatId, "registrazione dei team abilitata");
@@ -227,8 +221,6 @@ if ($tipo=="admin")
 		set_stato_corrente("registrazione_team_off");
 		exit();
 	}
-	
-	// comandi della tastiera team
 	if (strcmp($text, $key_admin_team_visualizza) === 0)
 	{
 		$elenco=elenca_team();
@@ -261,11 +253,21 @@ if ($tipo=="admin")
 	{
 		$livello = get_livello();
 		set_stato_corrente("pausa");
-		notifica_punteggio();
+		//notifica_punteggio();
 		$cont=invia_keyboard("gara",  "pulsantiera disabilitata", $chatId);
 		notifica_mittente($chatId, "livello: ".$livello . "\nin pausa " . $cont . " utenti" );
 		exit();
 	}
+	if (strcmp($text, $key_admin_punti) === 0)
+	{
+		$livello = get_livello();
+		//set_stato_corrente("pausa");
+		$msg=notifica_punteggio();
+		//$cont=invia_keyboard("gara",  "pulsantiera disabilitata", $chatId);
+		notifica_mittente($chatId, $msg);
+		exit();
+	}
+	
 	if (strcmp($text, $key_admin_anteprima) === 0)
 	{
 		
@@ -1033,6 +1035,15 @@ function notifica_punteggio()
 	
 	$cont=0;
 	$livello=get_livello();
+	
+	//$notifica=$value[$livello];
+	$esatta=risposta_esatta($livello);
+	
+	foreach ($utenti as $key => $value)
+	{
+		$all=$all . $emo_admin_team . " ". $value["nome"].":  ".$value[$livello]."\n";
+	}
+	
 	foreach ($utenti as $key => $value)
 	{
 		//Telegram prescrive una pausa di 1 sec ogni 30 notifiche 
@@ -1043,8 +1054,8 @@ function notifica_punteggio()
 		}
 		$j++;
 		$ch = curl_init();
-		$notifica=$value[$livello];
-		$myUrl=$botUrlMessage . "?chat_id=" . $key . "&text=" . urlencode("punteggio ultima risposta: ".$notifica);
+
+		$myUrl=$botUrlMessage . "?chat_id=" . $key . "&text=" . urlencode("risposta esatta: ". $esatta."punteggio ottenuto: ".$value[$livello]."\n\n".$all);
 		curl_setopt($ch, CURLOPT_URL, $myUrl); 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 		
@@ -1054,5 +1065,5 @@ function notifica_punteggio()
 		$cont++;
 	}
 
-	return true;
+	return "risposta esatta: ". $esatta. "\n\n".$all;
 }
