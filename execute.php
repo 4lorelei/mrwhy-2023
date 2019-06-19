@@ -583,7 +583,7 @@ function keyboard_admin_team($chatId, $msg)
 	global $key_admin_team_visualizza, $key_admin_team_elimina, $key_admin_home;
 	
 
-	$reply_markup='{"keyboard":[["'.$key_admin_team_visualizza.'","'.$key_admin_team_elimina.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
+	$reply_markup='{"keyboard":[["'.$key_admin_registra_on.'","'.$key_admin_registra_off.'"],["'.$key_admin_team_visualizza.'","'.$key_admin_team_elimina.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
