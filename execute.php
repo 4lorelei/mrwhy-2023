@@ -1055,7 +1055,7 @@ function notifica_punteggio()
 		$j++;
 		$ch = curl_init();
 
-		$myUrl=$botUrlMessage . "?chat_id=" . $key . "&text=" . urlencode("risposta esatta: ". $esatta."punteggio ottenuto: ".$value[$livello]."\n\n".$all);
+		$myUrl=$botUrlMessage . "?chat_id=" . $key . "&text=" . urlencode("risposta esatta: ". $esatta."\npunteggio ottenuto: ".$value[$livello]."\n\nteam:\n".$all);
 		curl_setopt($ch, CURLOPT_URL, $myUrl); 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 		
