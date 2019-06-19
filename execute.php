@@ -144,11 +144,11 @@ $key_admin_livello=$emoji_admin_livello." livello";
 
 $emo_admin_risposte = "\xF0\x9F\x9B\xA1";
 $emoji_admin_risposte=json_decode('"'.$emo_admin_risposte.'"');
-$key_admin_risposte=$emoji_admin_risposte." risposte";
+$key_admin_risposte=$emoji_admin_risposte." soluzioni";
 
 $emo_admin_verifica = "\xF0\x9F\x9B\xA1";
 $emoji_admin_verifica=json_decode('"'.$emo_admin_verifica.'"');
-$key_admin_verifica=$emoji_admin_verifica." verifica";
+$key_admin_verifica=$emoji_admin_verifica." stato";
 
 $emo_admin_home = "\xF0\x9F\x9B\xA1";
 $emoji_admin_home=json_decode('"'.$emo_admin_home.'"');
