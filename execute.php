@@ -261,9 +261,7 @@ if ($tipo=="admin")
 	if (strcmp($text, $key_admin_punti) === 0)
 	{
 		$livello = get_livello();
-		//set_stato_corrente("pausa");
 		$msg=notifica_punteggio();
-		//$cont=invia_keyboard("gara",  "pulsantiera disabilitata", $chatId);
 		notifica_mittente($chatId, $msg);
 		exit();
 	}
@@ -276,8 +274,8 @@ if ($tipo=="admin")
 	}
 	if (strcmp($text, $key_admin_classifica) === 0)
 	{
-		
-		notifica_mittente($chatId, "INVIO CLASSIFICA");
+		$msg=notifica_classifica();
+		notifica_mittente($chatId, $msg);
 		exit();
 	}
 	
@@ -984,7 +982,7 @@ function invia_risposta($tasto, $chatId)
 	elseif ($tasto==$key_quattro) 
 		$risposta="4";
 		
-		notifica_mittente($chatId, "ricevuto risposta ".$risposta);
+		//notifica_mittente($chatId, "ricevuto risposta ".$risposta);
 		
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
@@ -1006,10 +1004,11 @@ function invia_risposta($tasto, $chatId)
 		return false;
 	
 	$esatta = risposta_esatta($livello);
-	    notifica_mittente($chatId, "attesa risposta esatta ".$esatta);
+	    // notifica_mittente($chatId, "attesa risposta esatta ".$esatta);
 	if ((int)$esatta == (int)$risposta)
 	{
 	    $utenti[$chatId][$livello]=$punteggio[$piazzamento];
+		$utenti[$chatId]["tot"]+=$punteggio[$piazzamento];
 		$piazzamento++;
 		$myPiazzamentoJson = json_encode($piazzamento);
 		file_put_contents($path_piazzamento, $myPiazzamentoJson, LOCK_EX);
@@ -1028,6 +1027,7 @@ function notifica_punteggio()
 {
 	global $path_utenti;
 	global $botUrlMessage;
+	global $emoji_admin_team;
 	
 	
 	$myStatoJson = file_get_contents($path_utenti);
@@ -1066,4 +1066,44 @@ function notifica_punteggio()
 	}
 
 	return "risposta esatta: ". $esatta. "\n\n".$all;
+}
+function notifica_classifica()
+{
+	global $path_utenti;
+	global $botUrlMessage;
+	global $emoji_admin_team;
+	
+	
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	
+	$cont=0;
+	
+	foreach ($utenti as $key => $value)
+	{
+		$all=$all . $emoji_admin_team . " ". $value["nome"].":  ".$value["tot"]."\n";
+	}
+	
+	foreach ($utenti as $key => $value)
+	{
+		//Telegram prescrive una pausa di 1 sec ogni 30 notifiche 
+		$j=1;
+		if ($j % 20 == 0)
+		{
+			sleep(1);
+		}
+		$j++;
+		$ch = curl_init();
+
+		$myUrl=$botUrlMessage . "?chat_id=" . $key . "&text=" . urlencode("classifica generale\n\n".$all);
+		curl_setopt($ch, CURLOPT_URL, $myUrl); 
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+		
+		// read curl response
+		$output = curl_exec($ch);
+		curl_close($ch);
+		$cont++;
+	}
+
+	return "classifica generale\n\n".$all;
 }
