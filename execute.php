@@ -129,6 +129,10 @@ $emo_admin_classifica = "\xF0\x9F\x9B\xA1";
 $emoji_admin_classifica=json_decode('"'.$emo_admin_classifica.'"');
 $key_admin_classifica=$emoji_admin_classifica." classifica";
 
+$emo_admin_punti = "\xF0\x9F\x9B\xA1";
+$emoji_admin_punti=json_decode('"'.$emo_admin_punti.'"');
+$key_admin_punti=$emoji_admin_punti." punti";
+
 $emo_admin_anteprima = "\xF0\x9F\x9B\xA1";
 $emoji_admin_anteprima=json_decode('"'.$emo_admin_anteprima.'"');
 $key_admin_anteprima=$emoji_admin_anteprima." anteprima";
@@ -508,10 +512,10 @@ function keyboard_admin_gara ($chatId, $msg)
 {
 	
 	global $botUrlMessage;
-	global $key_admin_go, $key_admin_pausa, $key_admin_anteprima, $key_admin_classifica, $key_admin_home;
+	global $key_admin_go, $key_admin_pausa, $key_admin_anteprima, $key_admin_punti, $key_admin_classifica, $key_admin_home;
 
 	
-	$reply_markup='{"keyboard":[["'.$key_admin_go.'","'.$key_admin_pausa.'"],["'.$key_admin_anteprima.'","'. $key_admin_classifica. '"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
+	$reply_markup='{"keyboard":[["'.$key_admin_go.'","'.$key_admin_pausa.'"],["'.$key_admin_punti.'","'. $key_admin_classifica. '"],["'.$key_admin_anteprima.'","'.$key_admin_home.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
@@ -533,11 +537,6 @@ function keyboard_admin_menu($chatId, $msg)
 {
 	global $botUrlMessage;
 	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_set;
-
-	/*
-	$reply_markup='{"keyboard":[["'.$key_admin_registra.'","'.$key_admin_team.'"],["'.$key_admin_gara.'","'. $key_admin_set. '"]],"resize_keyboard":true}';
-	
-	*/
 	
 	$reply_markup='{"keyboard":[["'.$key_admin_set.'","'.$key_admin_team.'"],["'.$key_admin_gara.'"]],"resize_keyboard":true}';
 
@@ -555,6 +554,7 @@ function keyboard_admin_menu($chatId, $msg)
     return  $output;
 }
 
+/*
 function keyboard_admin_registrazione($chatId, $msg)
 {
 	global $botUrlMessage;
@@ -576,6 +576,7 @@ function keyboard_admin_registrazione($chatId, $msg)
 	
     return  $output;
 }
+*/
 
 function keyboard_admin_team($chatId, $msg)
 {
