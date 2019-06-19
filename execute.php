@@ -581,7 +581,7 @@ function keyboard_admin_team($chatId, $msg)
 {
 	global $botUrlMessage;
 	global $key_admin_team_visualizza, $key_admin_team_elimina, $key_admin_home;
-	
+	global $key_admin_registra_on, $key_admin_registra_off;
 
 	$reply_markup='{"keyboard":[["'.$key_admin_registra_on.'","'.$key_admin_registra_off.'"],["'.$key_admin_team_visualizza.'","'.$key_admin_team_elimina.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
 	
