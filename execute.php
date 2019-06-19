@@ -1079,12 +1079,16 @@ function notifica_classifica()
 	
 	$cont=0;
 	
+	$narr = array_sort($elenco, "sort", $order=SORT_DESC);
+	
+	array_sort_by_column($utenti, 'tot');
+	
 	foreach ($utenti as $key => $value)
 	{
 		$all=$all . $emoji_admin_team . " ". $value["nome"].":  ".$value["tot"]."\n";
 	}
 	
-	foreach ($utenti as $key => $value)
+	foreach ($narr as $key => $value)
 	{
 		//Telegram prescrive una pausa di 1 sec ogni 30 notifiche 
 		$j=1;
@@ -1107,3 +1111,13 @@ function notifica_classifica()
 
 	return "classifica generale\n\n".$all;
 }
+function array_sort_by_column(&$arr, $col, $dir = SORT_DESC) 
+{
+    $sort_col = array();
+    foreach ($arr as $key=> $row) {
+        $sort_col[$key] = $row[$col];
+    }
+
+    array_multisort($sort_col, $dir, $arr);
+}
+
