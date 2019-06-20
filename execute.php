@@ -1218,10 +1218,11 @@ function reset_punteggi()
 	
 	foreach ($utenti as $key => $value)
 	{
-		$utenti[$key]["tot"]=0;
+		$utenti_new[$key]["tot"]=0;
+		$utenti_new[$key]["nome"]=$utenti[$key]["nome"];
 	}
 	
-	$myUtentiJson = json_encode($utenti);
+	$myUtentiJson = json_encode($utenti_new);
 	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
 	
 	set_livello(1);
