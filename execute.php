@@ -1094,14 +1094,13 @@ function notifica_classifica()
 	foreach ($utenti as $key => $value)
 	{
 		$aa[$key]=$value["tot"];
-		$bb[$key]=$value["nome"];
 	}
 
-	rsort($aa);
+	arsort($aa);
 	
 	foreach ($aa as $key => $value)
 	{
-		$all=$all . $emoji_admin_team . " ". $bb[$key] .":  ".$value."\n";
+		$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
 	}
 	
 	$cont=0;
