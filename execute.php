@@ -117,23 +117,23 @@ $emoji_admin_team_elimina=json_decode('"'.$emo_admin_team_elimina.'"');
 $key_admin_team_elimina=$emoji_admin_team_elimina." elimina";
 
 
-$emo_admin_go = "\xF0\x9F\x9B\xA1";
+$emo_admin_go = "\xE2\x96\xB6";   ///////////////////
 $emoji_admin_go=json_decode('"'.$emo_admin_go.'"');
 $key_admin_go=$emoji_admin_go." go";
 
-$emo_admin_pausa = "\xF0\x9F\x9B\xA1";
+$emo_admin_pausa = "\xE2\x97\xBC";   /////////////////7
 $emoji_admin_pausa=json_decode('"'.$emo_admin_pausa.'"');
 $key_admin_pausa=$emoji_admin_pausa." pausa";
 
-$emo_admin_classifica = "\xF0\x9F\x9B\xA1";
+$emo_admin_classifica = "\xF0\x9F\x8E\xAF";    ///////////////
 $emoji_admin_classifica=json_decode('"'.$emo_admin_classifica.'"');
 $key_admin_classifica=$emoji_admin_classifica." classifica";
 
-$emo_admin_punti = "\xF0\x9F\x9B\xA1";
+$emo_admin_punti = "\x23\xE2\x83\xA3";    ///////////////////////
 $emoji_admin_punti=json_decode('"'.$emo_admin_punti.'"');
 $key_admin_punti=$emoji_admin_punti." punti";
 
-$emo_admin_anteprima = "\xF0\x9F\x9B\xA1";
+$emo_admin_anteprima = "\xF0\x9F\x8E\xA5";   //////////////////////////
 $emoji_admin_anteprima=json_decode('"'.$emo_admin_anteprima.'"');
 $key_admin_anteprima=$emoji_admin_anteprima." anteprima";
 
@@ -142,7 +142,7 @@ $emo_admin_reset = "\xF0\x9F\x94\xA5";   ////////////////////////
 $emoji_admin_reset=json_decode('"'.$emo_admin_reset.'"');
 $key_admin_reset=$emoji_admin_reset." reset";
 
-$emo_admin_livello = "\xE2\x96\xB6";
+$emo_admin_livello = "\xF0\x9F\x93\x91";   //////////////////
 $emoji_admin_livello=json_decode('"'.$emo_admin_livello.'"');
 $key_admin_livello=$emoji_admin_livello." livello";
 
