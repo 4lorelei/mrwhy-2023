@@ -366,7 +366,7 @@ if ($tipo=="admin")
 		elseif ($text=="team")
 		{
 			reset_team();
-			notifica_mittente($chatId, "reset di team e punteggio effettuato");
+			notifica_mittente($chatId, "reset di team e punteggi effettuato");
 		}
 		else
 		{
