@@ -129,7 +129,7 @@ $emo_admin_classifica = "\xF0\x9F\x8E\xAF";    ///////////////
 $emoji_admin_classifica=json_decode('"'.$emo_admin_classifica.'"');
 $key_admin_classifica=$emoji_admin_classifica." classifica";
 
-$emo_admin_punti = "\x23\xE2\x83\xA3";    ///////////////////////
+$emo_admin_punti = "\xE2\x96\xB6";    ///////////////////////  \x23\xE2\x83\xA3
 $emoji_admin_punti=json_decode('"'.$emo_admin_punti.'"');
 $key_admin_punti=$emoji_admin_punti." punti";
 
@@ -550,7 +550,6 @@ function keyboard_admin_gara ($chatId, $msg)
 	$reply_markup='{"keyboard":[["'.$key_admin_go.'","'.$key_admin_pausa.'"],["'.$key_admin_punti.'","'. $key_admin_classifica. '"],["'.$key_admin_anteprima.'","'.$key_admin_home.'"]],"resize_keyboard":true}';
 	
 	
-	$reply_markup='{"keyboard":[["'.$key_admin_go.'","'.$key_admin_pausa.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
