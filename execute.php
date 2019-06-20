@@ -166,15 +166,17 @@ if ($text=="celihaiiceliblu")
 }
 if ($text=="noncelihaiiceliblu")
 {
-	reset_admin($chatId);
+	reset_admin();
+	keyboard_registra_team ($chatId, "menu di registrazione");
 }
 
-
+/*
 // esiste admin?
 if (!esiste_admin())
 {
 	set_admin($chatId);
 }
+*/
 
 // lettura tipo utente (admin, standard)
 $tipo=tipo_utente($chatId);
@@ -805,7 +807,7 @@ function set_admin($chatId)
 	return true;
 }
 
-function reset_admin($chatId)
+function reset_admin()
 {
 	global $path_admin;
 	
@@ -815,8 +817,7 @@ function reset_admin($chatId)
 	
 	foreach ($admin as $key => $value)
 	{
-		if ($key != $chatId)
-			unset($admin[$key]);
+		unset($admin[$key]);
 	}
 	
 	$myAdminJson = json_encode($admin);
