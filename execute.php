@@ -268,7 +268,7 @@ if ($tipo=="admin")
 	
 	if (strcmp($text, $key_admin_anteprima) === 0)
 	{
-		$punti=leggi_punteggi();
+		$punti=leggi_punteggio();
 		notifica_mittente($chatId, $punti);
 		$classifica=leggi_classifica();
 		notifica_mittente($chatId, $classifica);
