@@ -268,8 +268,11 @@ if ($tipo=="admin")
 	
 	if (strcmp($text, $key_admin_anteprima) === 0)
 	{
-		
-		notifica_mittente($chatId, "ANTEPRIMA CLASSIFICA STATO E LIVELLO CORRENTE");
+		$punti=leggi_punteggi();
+		notifica_mittente($chatId, $punti);
+		$classifica=leggi_classifica();
+		notifica_mittente($chatId, $classifica);
+
 		exit();
 	}
 	if (strcmp($text, $key_admin_classifica) === 0)
@@ -338,7 +341,7 @@ if ($tipo=="admin")
 	elseif($push == "imposta_livello")
 	{
 		$livello=(int)$text;
-		$myLivelloJson = json_encode($livello);
+		$myLivelloJson = json_encode($livello-1);
 		file_put_contents($path_livello, $myLivelloJson, LOCK_EX);
 	
 		$myUtentiJson = file_get_contents($path_utenti);
@@ -357,10 +360,12 @@ if ($tipo=="admin")
 	{
 		if ($text=="punteggi")
 		{
+			reset_punteggi();
 			notifica_mittente($chatId, "reset dei punteggi effettuato");
 		}
 		elseif ($text=="team")
 		{
+			reset_team();
 			notifica_mittente($chatId, "reset di team e punteggio effettuato");
 		}
 		else
@@ -1092,7 +1097,14 @@ function notifica_punteggio()
 	
 	foreach ($utenti as $key => $value)
 	{
-		$all=$all . $emoji_admin_team . " ". $value["nome"].":  ".$value[$livello]."\n";
+		$aa[$key]=$value[$livello];
+	}
+	
+	arsort($aa);
+	
+	foreach ($aa as $key => $value)
+	{
+		$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
 	}
 	
 	foreach ($utenti as $key => $value)
@@ -1164,14 +1176,93 @@ function notifica_classifica()
 	return "classifica generale\n\n".$all;
 }
 
-/*
-function removeElementWithValue($array, $key, $value){
-     foreach($array as $subKey => $subArray){
-          if($subArray[$key] == $value){
-               unset($array[$subKey]);
-          }
-     }
-     return $array;
+function leggi_punteggio()
+{
+	global $path_utenti;
+	global $botUrlMessage;
+	global $emoji_admin_team;
+	
+	
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	
+	$cont=0;
+	$livello=get_livello();
+	
+	//$notifica=$value[$livello];
+	$esatta=risposta_esatta($livello);
+	
+	foreach ($utenti as $key => $value)
+	{
+		$aa[$key]=$value[$livello];
+	}
+	
+	arsort($aa);
+	
+	foreach ($aa as $key => $value)
+	{
+		$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
+	}
+	
+	return "risposta esatta: ". $esatta. "\n\n".$all;
 }
-$array = removeElementWithValue($array, "year", 2011);
-*/
+
+function leggi_classifica()
+{
+	global $path_utenti;
+	global $botUrlMessage;
+	global $emoji_admin_team;
+	
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	
+	foreach ($utenti as $key => $value)
+	{
+		$aa[$key]=$value["tot"];
+	}
+
+	arsort($aa);
+	
+	foreach ($aa as $key => $value)
+	{
+		$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
+	}
+
+	return "classifica generale\n\n".$all;
+}
+
+function reset_punteggi()
+{
+	global $path_utenti;
+	
+	$myUtentiJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myUtentiJson,true);
+	
+	foreach ($utenti as $key => $value)
+	{
+		$utenti[$key]["tot"]=0;
+	}
+	
+	$myUtentiJson = json_encode($utenti);
+	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+
+	return true;
+}
+
+function reset_punteggi()
+{
+	global $path_utenti;
+	
+	$myUtentiJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myUtentiJson,true);
+	
+	foreach ($utenti as $key => $value)
+	{
+		unset($utenti[$key]);
+	}
+	
+	$myUtentiJson = json_encode($utenti);
+	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+
+	return true;
+}
