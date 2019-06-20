@@ -343,7 +343,7 @@ if ($tipo=="admin")
 		$livello=(int)$text;
 		set_livello($livello);
 		
-		notifica_mittente($chatId, "livello reimpostato al valore ".$livello);
+		notifica_mittente($chatId, "prossimo livello di gioco ".$livello);
 		
 		exit();
 	}
@@ -1262,12 +1262,12 @@ function stato()
 	$soluzioni = json_decode($mySoluzioniJson,true);
 	
 	$livello=get_livello();
-	$all = "livello corrente: " . $livello . "\n\n";
+	$all = "livello corrente: " . (int)$livello . "\n\n";
 	$all = $all . "soluzioni impostate: \n";
 	$i=1;
 	foreach ($soluzioni as $key => $value)
 	{
-		$all = $all . "livello " . $i . $soluzioni[$i-1] . "\n";
+		$all = $all . "livello " . $i . ":   " . $soluzioni[$i-1] . "\n";
 		$i++;
 	}
 	
