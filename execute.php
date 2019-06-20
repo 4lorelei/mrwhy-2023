@@ -341,16 +341,7 @@ if ($tipo=="admin")
 	elseif($push == "imposta_livello")
 	{
 		$livello=(int)$text;
-		$myLivelloJson = json_encode($livello-1);
-		file_put_contents($path_livello, $myLivelloJson, LOCK_EX);
-	
-		$myUtentiJson = file_get_contents($path_utenti);
-		$utenti = json_decode($myUtentiJson,true);
-		foreach ($utenti as $key => $value)
-		   $value[$livello]=0;
-	
-		$myUtentiJson = json_encode($utenti);
-		file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+		set_livello($livello)
 		
 		notifica_mittente($chatId, "livello reimpostato al valore ".$livello);
 		
@@ -596,30 +587,6 @@ function keyboard_admin_menu($chatId, $msg)
 	
     return  $output;
 }
-
-/*
-function keyboard_admin_registrazione($chatId, $msg)
-{
-	global $botUrlMessage;
-	global $key_admin_registra_on, $key_admin_registra_off, $key_admin_home;
-	
-
-	$reply_markup='{"keyboard":[["'.$key_admin_registra_on.'","'.$key_admin_registra_off.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
-	
-	$ch = curl_init();
-	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
-	curl_setopt($ch, CURLOPT_URL, $myUrl); 
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-	
-	// read curl response
-	$output = curl_exec($ch);
-	curl_close($ch);
-	
-	set_keyboard($chatId, "registrazione");
-	
-    return  $output;
-}
-*/
 
 function keyboard_admin_team($chatId, $msg)
 {
@@ -968,7 +935,7 @@ function risposta_esatta($livello)
 	$mySoluzioniJson = file_get_contents($path_soluzioni);
 	$soluzioni = json_decode($mySoluzioniJson,true);
 	
-	return $soluzioni[(int)$livello];
+	return $soluzioni[(int)$livello-1];
 }
 
 function next_livello()
@@ -1012,6 +979,23 @@ function get_livello()
 	return $livello;
 }
 
+function set_livello($livello)
+{
+	global $path_livello;
+	
+	$myLivelloJson = json_encode($livello-1);
+	file_put_contents($path_livello, $myLivelloJson, LOCK_EX);
+
+	$myUtentiJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myUtentiJson,true);
+	foreach ($utenti as $key => $value)
+	   $value[$livello]=0;
+
+	$myUtentiJson = json_encode($utenti);
+	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+
+	return true;
+}
 
 function reset_piazzamento()
 {
@@ -1245,8 +1229,10 @@ function reset_punteggi()
 	
 	$myUtentiJson = json_encode($utenti);
 	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
-
+	
+	set_livello(0);
 	return true;
+	
 }
 
 function reset_team()
@@ -1263,6 +1249,8 @@ function reset_team()
 	
 	$myUtentiJson = json_encode($utenti);
 	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+	
+	set_livello(0);
 
 	return true;
 }
