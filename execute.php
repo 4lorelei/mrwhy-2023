@@ -1097,7 +1097,7 @@ function notifica_classifica()
 		$bb[$key]=$value["nome"];
 	}
 
-	asort($aa);
+	rsort($aa);
 	
 	foreach ($aa as $key => $value)
 	{
