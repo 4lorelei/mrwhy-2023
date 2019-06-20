@@ -171,23 +171,14 @@ $tipo=tipo_utente($chatId);
 
 
 
-notifica_mittente($chatId, $tipo."***".$text."***");
+/////////notifica_mittente($chatId, $tipo."***".$text."***");
 
 // gestione admin
 if ($tipo=="admin")
 {
 	$tastiera=keyboard_impostata($chatId);
 	if ($tastiera=="none")
-		keyboard_admin_menu($chatId, "menu");
-	/*
-	elseif ($tastiera=="team")
-		keyboard_admin_team($chatId, "team");
-	elseif ($tastiera=="registrazione")
-		keyboard_admin_registrazione($chatId, "registrazione");
-	elseif ($tastiera=="menu")
-		keyboard_admin_menu($chatId, "menu");
-	*/
-		
+		keyboard_admin_menu($chatId, "menu home");
 	
 	//esecuzione comandi immediati di admin
 	
