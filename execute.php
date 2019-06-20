@@ -268,6 +268,9 @@ if ($tipo=="admin")
 	
 	if (strcmp($text, $key_admin_anteprima) === 0)
 	{
+		
+		$status=stato_corrente();
+		notifica_mittente($chatId, $status);
 		$punti=leggi_punteggio();
 		notifica_mittente($chatId, $punti);
 		$classifica=leggi_classifica();
@@ -1178,17 +1181,17 @@ function leggi_punteggio()
 	
 	foreach ($utenti as $key => $value)
 	{
-		$aa[$key]=$value[$livello];
+		$aa[$key]=(int)$value[(int)$livello];
 	}
 	
 	arsort($aa);
 	
 	foreach ($aa as $key => $value)
 	{
-		$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
+		$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".(int)$value."\n";
 	}
 	
-	return "livello " . $livello . "\nrisposta esatta " . $esatta. "\n\n".$all;
+	return "livello " . (int)$livello . "\nrisposta esatta " . $esatta. "\n\n".$all;
 }
 
 function leggi_classifica()
@@ -1230,7 +1233,7 @@ function reset_punteggi()
 	$myUtentiJson = json_encode($utenti);
 	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
 	
-	set_livello(0);
+	set_livello(1);
 	return true;
 	
 }
@@ -1250,7 +1253,7 @@ function reset_team()
 	$myUtentiJson = json_encode($utenti);
 	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
 	
-	set_livello(0);
+	set_livello(1);
 
 	return true;
 }
