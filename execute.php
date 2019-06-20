@@ -138,19 +138,19 @@ $emoji_admin_anteprima=json_decode('"'.$emo_admin_anteprima.'"');
 $key_admin_anteprima=$emoji_admin_anteprima." anteprima";
 
 
-$emo_admin_reset = "\xF0\x9F\x9B\xA1";
+$emo_admin_reset = "\xF0\x9F\x94\xA5";   ////////////////////////
 $emoji_admin_reset=json_decode('"'.$emo_admin_reset.'"');
 $key_admin_reset=$emoji_admin_reset." reset";
 
-$emo_admin_livello = "\xF0\x9F\x9B\xA1";
+$emo_admin_livello = "\xE2\x96\xB6";
 $emoji_admin_livello=json_decode('"'.$emo_admin_livello.'"');
 $key_admin_livello=$emoji_admin_livello." livello";
 
-$emo_admin_risposte = "\xF0\x9F\x9B\xA1";
+$emo_admin_risposte = "\xE2\x9C\x85";   ///////////////////////////
 $emoji_admin_risposte=json_decode('"'.$emo_admin_risposte.'"');
 $key_admin_risposte=$emoji_admin_risposte." soluzioni";
 
-$emo_admin_verifica = "\xF0\x9F\x9B\xA1";
+$emo_admin_verifica = "\xF0\x9F\x91\x93";  //////////////////////////////
 $emoji_admin_verifica=json_decode('"'.$emo_admin_verifica.'"');
 $key_admin_verifica=$emoji_admin_verifica." stato";
 
