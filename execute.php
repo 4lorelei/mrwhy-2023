@@ -289,10 +289,14 @@ if ($tipo=="admin")
 	}
 	if (strcmp($text, $key_admin_livello) === 0)
 	{
+		global $path_livello, $path_utenti;
 		
-		notifica_mittente($chatId, "IMPOSTA LIVELLO CORRENTE");
+		set_automa("imposta_livello", $chatId);
+		notifica_mittente($chatId, "inserisci il numero del livello da reimpostare\n(N.B. la classifica non varia)");
+		
 		exit();
 	}
+	
 	if (strcmp($text, $key_admin_verifica) === 0)
 	{
 		
@@ -301,8 +305,9 @@ if ($tipo=="admin")
 	}
 	if (strcmp($text, $key_admin_reset) === 0)
 	{
-		
-		notifica_mittente($chatId, "AZZERO TEAM, E LIVELLO");
+		set_automa("reset", $chatId);
+		notifica_mittente($chatId, "punteggi: azzera punteggi\nteam: azzera team e punteggi");
+
 		exit();
 	}
 	
@@ -330,7 +335,40 @@ if ($tipo=="admin")
 		notifica_mittente($chatId, "registrazione avvenuta correttamente");
 		exit();
 	}
+	elseif($push == "imposta_livello")
+	{
+		$livello=(int)$text;
+		$myLivelloJson = json_encode($livello);
+		file_put_contents($path_livello, $myLivelloJson, LOCK_EX);
 	
+		$myUtentiJson = file_get_contents($path_utenti);
+		$utenti = json_decode($myUtentiJson,true);
+		foreach ($utenti as $key => $value)
+		   $value[$livello]=0;
+	
+		$myUtentiJson = json_encode($utenti);
+		file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+		
+		notifica_mittente($chatId, "livello reimpostato al valore ".$livello);
+		
+		exit();
+	}
+	elseif($push == "reset")
+	{
+		if ($text=="punteggi")
+		{
+			notifica_mittente($chatId, "reset dei punteggi effettuato");
+		}
+		elseif ($text=="team")
+		{
+			notifica_mittente($chatId, "reset di team e punteggio effettuato");
+		}
+		else
+		{
+			notifica_mittente($chatId, "richiesta non valida");
+		}
+		exit();
+	}
 	exit();
 }
 
@@ -957,8 +995,6 @@ function next_livello()
 	$myUtentiJson = json_encode($utenti);
 	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
 		
-	return true;
-	
 	return $livello;
 }
 
