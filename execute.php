@@ -92,7 +92,7 @@ $emo_admin_team = "\xF0\x9F\x9B\xA1";  //////////////////
 $emoji_admin_team=json_decode('"'.$emo_admin_team.'"');
 $key_admin_team=$emoji_admin_team." team";
 
-$emo_admin_gara = "\xF0\x9F\x9B\xA1";    //////////////////  \xF0\x9F\x9A\xB2
+$emo_admin_gara = "\xF0\x9F\x9A\xB2";    //////////////////  
 $emoji_admin_gara=json_decode('"'.$emo_admin_gara.'"');
 $key_admin_gara=$emoji_admin_gara." gara";
 
@@ -542,6 +542,7 @@ function keyboard_admin_gara ($chatId, $msg)
 	global $botUrlMessage;
 	global $key_admin_go, $key_admin_pausa, $key_admin_anteprima, $key_admin_punti, $key_admin_classifica, $key_admin_home;
 
+	notifica_mittente($chatId, "keyb gaea");  /////////////////////// 
 	
 	$reply_markup='{"keyboard":[["'.$key_admin_go.'","'.$key_admin_pausa.'"],["'.$key_admin_punti.'","'. $key_admin_classifica. '"],["'.$key_admin_anteprima.'","'.$key_admin_home.'"]],"resize_keyboard":true}';
 	
