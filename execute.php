@@ -162,6 +162,7 @@ $key_admin_home=$emoji_admin_home." home";
 if ($text=="celihaiiceliblu")
 {
 	set_admin($chatId);
+	keyboard_admin_menu($chatId, "menu home");
 }
 if ($text=="noncelihaiiceliblu")
 {
