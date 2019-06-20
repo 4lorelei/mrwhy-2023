@@ -302,8 +302,8 @@ if ($tipo=="admin")
 	
 	if (strcmp($text, $key_admin_verifica) === 0)
 	{
-		
-		notifica_mittente($chatId, "VERIFICA RISPOSTE, LIVELLO CORRENTE");
+		$msg = stato();
+		notifica_mittente($chatId, $msg);
 		exit();
 	}
 	if (strcmp($text, $key_admin_reset) === 0)
@@ -1253,4 +1253,21 @@ function reset_team()
 	set_livello(0);
 
 	return true;
+}
+function stato()
+{
+	global $path_soluzioni;
+		
+	$mySoluzioniJson = file_get_contents($path_soluzioni);
+	$soluzioni = json_decode($mySoluzioniJson,true);
+	
+	$livello=get_livello();
+	$all = "livello corrente: " . $livello . "\n\n";
+	$all.="soluzioni impostate: \n"
+	foreach ($soluzioni as $key => $value)
+	{
+		$all.="livello " . $i . soluzioni[$i-1] . "\n";
+	}
+	
+	return $all;
 }
