@@ -125,11 +125,11 @@ $emo_admin_pausa = "\xE2\x97\xBC";   /////////////////7
 $emoji_admin_pausa=json_decode('"'.$emo_admin_pausa.'"');
 $key_admin_pausa=$emoji_admin_pausa." pausa";
 
-$emo_admin_classifica = "\xF0\x9F\x8E\xAF";    ///////////////
+$emo_admin_classifica = "\xF0\x9F\x8F\x86";    /////////////// 
 $emoji_admin_classifica=json_decode('"'.$emo_admin_classifica.'"');
 $key_admin_classifica=$emoji_admin_classifica." classifica";
 
-$emo_admin_punti = "\xE2\x96\xB6";    ///////////////////////  \x23\xE2\x83\xA3
+$emo_admin_punti = "\xF0\x9F\x8E\xAF";    ///////////////////////  \xF0\x9F\x8F\x86
 $emoji_admin_punti=json_decode('"'.$emo_admin_punti.'"');
 $key_admin_punti=$emoji_admin_punti." punti";
 
