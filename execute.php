@@ -92,7 +92,7 @@ $emo_admin_team = "\xF0\x9F\x9B\xA1";  //////////////////
 $emoji_admin_team=json_decode('"'.$emo_admin_team.'"');
 $key_admin_team=$emoji_admin_team." team";
 
-$emo_admin_gara = "\xF0\x9F\x9A\xB2";    //////////////////
+$emo_admin_gara = "\xF0\x9F\x9B\xA1";    //////////////////  \xF0\x9F\x9A\xB2
 $emoji_admin_gara=json_decode('"'.$emo_admin_gara.'"');
 $key_admin_gara=$emoji_admin_gara." gara";
 
