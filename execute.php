@@ -701,6 +701,7 @@ function registrazione_team($chatId, $text)
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
 	$utenti[$chatId]["nome"] = $text;
+	$utenti[$chatId]["tot"] = 0;
 	
 	$myUtentiJson = json_encode($utenti);
 	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
@@ -929,7 +930,7 @@ function risposta_esatta($livello)
 
 function next_livello()
 {
-	global $path_livello;
+	global $path_livello, $path_utenti;
 	
 	$myLivelloJson = file_get_contents($path_livello);
 	$livello = json_decode($myLivelloJson,true);
@@ -945,6 +946,19 @@ function next_livello()
 		$myLivelloJson = json_encode($livello);
 		file_put_contents($path_livello, $myLivelloJson, LOCK_EX);
 	}
+
+	
+	//lettura del file dell'automa a stati
+	$myStatoJson = file_get_contents($path_utenti);
+	$utenti = json_decode($myStatoJson,true);
+	foreach ($utenti as $key => $value)
+	   $value[$livello]=0;
+	
+	$myUtentiJson = json_encode($utenti);
+	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+		
+	return true;
+	
 	return $livello;
 }
 
@@ -1074,18 +1088,24 @@ function notifica_classifica()
 	global $botUrlMessage;
 	global $emoji_admin_team;
 	
-	
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
 	
-	$cont=0;
-	
 	foreach ($utenti as $key => $value)
 	{
-		$all=$all . $emoji_admin_team . " ". $value["nome"].":  ".$value["tot"]."\n";
+		$aa[$key]=$value["tot"];
+		$bb[$key]=$value["nome"];
+	}
+
+	asort($aa);
+	
+	foreach ($aa as $key => $value)
+	{
+		$all=$all . $emoji_admin_team . " ". $bb[$key] .":  ".$value."\n";
 	}
 	
-	foreach ($narr as $key => $value)
+	$cont=0;
+	foreach ($utenti as $key => $value)
 	{
 		//Telegram prescrive una pausa di 1 sec ogni 30 notifiche 
 		$j=1;
