@@ -771,7 +771,7 @@ function esiste_admin()
 	if (sizeof($admin) == 0 )
 		return false;
 	else
-		return true;
+		return $admin;
 }
 function set_admin($chatId)
 {
@@ -1018,43 +1018,55 @@ function invia_risposta($tasto, $chatId)
 		
 		//notifica_mittente($chatId, "ricevuto risposta ".$risposta);
 		
-	$myStatoJson = file_get_contents($path_utenti);
-	$utenti = json_decode($myStatoJson,true);
-	
-	$myPunteggioJson = file_get_contents($path_punteggio);
-	$punteggio = json_decode($myPunteggioJson,true);
-	
-	$myPiazzamentoJson = file_get_contents($path_piazzamento);
-	$piazzamento = json_decode($myPiazzamentoJson,true);
-	
-	if (sizeof($piazzamento)==0)
-		$piazzamento=0;
-	
-	$livello = get_livello();
-	if (sizeof($livello)==0)
-		$livello=0;
-	
-	if (isset($utenti[$chatId][(int)$livello]))    //risposta già data
-		return false;
-	
-	$esatta = risposta_esatta($livello);
-	    // notifica_mittente($chatId, "attesa risposta esatta ".$esatta);
-	if ((int)$esatta == (int)$risposta)
+	$file = fopen($path_lock,"w+");
+	$Lock = flock($file,LOCK_EX);
+	if (!$Lock)
 	{
-	    $utenti[$chatId][$livello]=$punteggio[$piazzamento];
-		$utenti[$chatId]["tot"]+=$punteggio[$piazzamento];
-		$piazzamento++;
-		$myPiazzamentoJson = json_encode($piazzamento);
-		file_put_contents($path_piazzamento, $myPiazzamentoJson, LOCK_EX);
+		$id=esiste_admin();
+		notifica_mittente($id, "errore: l' utente con id " . $chatId . " non ottiene il lock!");
 	}
 	else
 	{
-		$utenti[$chatId][$livello]=0;
-	}
-	
-	$myUtentiJson = json_encode($utenti);
-	file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+		$myStatoJson = file_get_contents($path_utenti);
+		$utenti = json_decode($myStatoJson,true);
 		
+		$myPunteggioJson = file_get_contents($path_punteggio);
+		$punteggio = json_decode($myPunteggioJson,true);
+		
+		$myPiazzamentoJson = file_get_contents($path_piazzamento);
+		$piazzamento = json_decode($myPiazzamentoJson,true);
+		
+		if (sizeof($piazzamento)==0)
+			$piazzamento=0;
+		
+		$livello = get_livello();
+		if (sizeof($livello)==0)
+			$livello=0;
+		
+		if (isset($utenti[$chatId][(int)$livello]))    //risposta già data
+			return false;
+		
+		$esatta = risposta_esatta($livello);
+			// notifica_mittente($chatId, "attesa risposta esatta ".$esatta);
+		if ((int)$esatta == (int)$risposta)
+		{
+			$utenti[$chatId][$livello]=$punteggio[$piazzamento];
+			$utenti[$chatId]["tot"]+=$punteggio[$piazzamento];
+			$piazzamento++;
+			$myPiazzamentoJson = json_encode($piazzamento);
+			file_put_contents($path_piazzamento, $myPiazzamentoJson, LOCK_EX);
+		}
+		else
+		{
+			$utenti[$chatId][$livello]=0;
+		}
+		
+		$myUtentiJson = json_encode($utenti);
+		file_put_contents($path_utenti, $myUtentiJson, LOCK_EX);
+		
+		flock($file,LOCK_UN);
+		fclose($file);
+	}
 	return true;
 }
 function notifica_punteggio()
