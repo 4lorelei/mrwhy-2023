@@ -163,6 +163,11 @@ if ($text=="celihaiiceliblu")
 {
 	set_admin($chatId);
 }
+if ($text=="noncelihaiiceliblu")
+{
+	reset_admin($chatId);
+}
+
 
 // esiste admin?
 if (!esiste_admin())
@@ -798,6 +803,27 @@ function set_admin($chatId)
 		
 	return true;
 }
+
+function reset_admin($chatId)
+{
+	global $path_admin;
+	
+	//lettura del file dell'automa a stati
+	$myAdminJson = file_get_contents($path_admin);
+	$admin = json_decode($myAdminJson,true);
+	
+	foreach ($admin as $key => $value)
+	{
+		if ($key != $chatId)
+			unset($admin[$key]);
+	}
+	
+	$myAdminJson = json_encode($admin);
+	file_put_contents($path_admin, $myAdminJson, LOCK_EX);
+		
+	return true;
+}
+
 function tipo_utente($chatId)
 {
 	global $path_admin;
