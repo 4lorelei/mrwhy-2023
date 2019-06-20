@@ -1003,7 +1003,7 @@ function reset_piazzamento()
 
 function invia_risposta($tasto, $chatId)
 {
-	global $path_utenti, $path_punteggio, $path_piazzamento;
+	global $path_utenti, $path_punteggio, $path_piazzamento, $path_lock;
 	global $key_uno, $key_due, $key_tre, $key_quattro;
 
 	
