@@ -544,7 +544,11 @@ function keyboard_admin_gara ($chatId, $msg)
 
 	notifica_mittente($chatId, "keyb gaea");  /////////////////////// 
 	
+	/*
 	$reply_markup='{"keyboard":[["'.$key_admin_go.'","'.$key_admin_pausa.'"],["'.$key_admin_punti.'","'. $key_admin_classifica. '"],["'.$key_admin_anteprima.'","'.$key_admin_home.'"]],"resize_keyboard":true}';
+	*/
+	
+	$reply_markup='{"keyboard":[["'.$key_admin_go.'","'.$key_admin_pausa.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
