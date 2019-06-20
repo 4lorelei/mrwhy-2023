@@ -1204,7 +1204,7 @@ function leggi_punteggio()
 		$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
 	}
 	
-	return "risposta esatta: ". $esatta. "\n\n".$all;
+	return "livello ".$livello"\nrisposta esatta ". $esatta. "\n\n".$all;
 }
 
 function leggi_classifica()
