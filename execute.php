@@ -161,7 +161,7 @@ $key_admin_home=$emoji_admin_home." home";
 // backdoor per admin
 if ($text=="celihaiiceliblu")
 {
-	set_admin($chatId)
+	set_admin($chatId);
 }
 
 // esiste admin?
