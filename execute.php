@@ -1249,7 +1249,7 @@ function reset_punteggi()
 	return true;
 }
 
-function reset_punteggi()
+function reset_team()
 {
 	global $path_utenti;
 	
