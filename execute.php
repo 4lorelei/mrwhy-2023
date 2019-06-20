@@ -341,7 +341,7 @@ if ($tipo=="admin")
 	elseif($push == "imposta_livello")
 	{
 		$livello=(int)$text;
-		set_livello($livello)
+		set_livello($livello);
 		
 		notifica_mittente($chatId, "livello reimpostato al valore ".$livello);
 		
