@@ -1263,10 +1263,12 @@ function stato()
 	
 	$livello=get_livello();
 	$all = "livello corrente: " . $livello . "\n\n";
-	$all.="soluzioni impostate: \n"
+	$all = $all . "soluzioni impostate: \n";
+	$i=1;
 	foreach ($soluzioni as $key => $value)
 	{
-		$all.="livello " . $i . soluzioni[$i-1] . "\n";
+		$all = $all . "livello " . $i . $soluzioni[$i-1] . "\n";
+		$i++;
 	}
 	
 	return $all;
