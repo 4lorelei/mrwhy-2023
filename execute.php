@@ -241,6 +241,12 @@ if ($tipo=="admin")
 	// comandi della tastiera gara
 	if (strcmp($text, $key_admin_go) === 0)
 	{
+		$ret = stato_corrente();
+		if ($ret == "risposte_accettate")
+		{
+			notifica_mittente($chatId, "lo stato non è variato\nle risposte sono accettate");
+			exit();
+		}
 		$livello = next_livello();
 		set_stato_corrente("risposte_accettate");
 		reset_piazzamento();
@@ -254,6 +260,12 @@ if ($tipo=="admin")
 	}
 	if (strcmp($text, $key_admin_pausa) === 0)
 	{
+		$ret = stato_corrente();
+		if ($ret == "pausa")
+		{
+			notifica_mittente($chatId, "lo stato non è variato\nsistema in pausa");
+			exit();
+		}
 		$livello = get_livello();
 		set_stato_corrente("pausa");
 		//notifica_punteggio();
