@@ -38,8 +38,8 @@ function leggi_classifica()
 		$nome = $utenti[$key]["nome"];
 		$punti = $value;
 			
-	    $riga = '<tr> <td width="10%">  ' . $pos_v '.  </td>';
-		$riga = $riga . '<td width="60%" align="left">  ' . $nome . '</td>';
+	    $riga = '<tr> <td width="10%">  ' . $pos_v . ' </td>';
+		$riga = $riga . '<td width="60%" align="left">  ' . $nome . ' </td>';
 		$riga = $riga . '<td width="30%"> ' . $punti . ' </td> </tr>';
 	
 
