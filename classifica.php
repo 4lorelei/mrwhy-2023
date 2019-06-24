@@ -41,7 +41,7 @@ function leggi_classifica()
 		$ultimo_punteggio = $value;
 			
 	    $riga = '<tr> <td width="10%">  ' . $pos_v . ' </td>';
-		$riga = $riga . '<td width="60%" align="left">  ' . $nome . ' </td>';
+		$riga = $riga . '<td width="60%"> ' . $nome . ' </td>';
 		$riga = $riga . '<td width="30%"> ' . $punti . ' </td> </tr>';
 	
 
@@ -55,7 +55,7 @@ function leggi_classifica()
 
 <!DOCTYPE html>
 <html>
-<title>W3.CSS</title>
+<title>Mr. Why</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style type="text/css">
