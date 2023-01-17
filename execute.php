@@ -88,7 +88,7 @@ $emo_admin_registra = "\xF0\x9F\x9B\xA1";
 $emoji_admin_registra=json_decode('"'.$emo_admin_registra.'"');
 $key_admin_registra=$emoji_admin_registra."registrazione";
 
-$emo_admin_team = "\xF0\x9F\x9B\xA1";  //////////////////
+$emo_admin_team = "\xF0\x9F\x9B\xA1\x20";  //////////////////    <-----
 $emoji_admin_team=json_decode('"'.$emo_admin_team.'"');
 $key_admin_team=$emoji_admin_team."team";
 
@@ -573,7 +573,7 @@ function keyboard_admin_gara ($chatId, $msg)
 	
 	
 	$ch = curl_init();
-	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg. "&reply_markup=" . $reply_markup);
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 	
