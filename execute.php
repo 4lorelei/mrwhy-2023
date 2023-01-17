@@ -79,10 +79,12 @@ $key_quattro=$emoji_quattro."";
 $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team=$emoji_team."registra-team";
+$key_team="yyyregistra-team";
 
 $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team_view=$emoji_team."visualizza-team";
+$key_team_view="yyyvisualizza-team";
 
 $emo_admin_registra = "\xF0\x9F\x9B\xA1";
 $emoji_admin_registra=json_decode('"'.$emo_admin_registra.'"');
