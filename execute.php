@@ -522,6 +522,8 @@ function keyboard_registra_team ($chatId, $msg)
 {
 	global $botUrlMessage;
 	global $key_team, $key_team_view;
+    $key_team = "TEAM-";
+	$key_team_view = "VIEW-";
 	
 	$reply_markup='{"keyboard":[["'.$key_team.'", "'.$key_team_view.'"]],"resize_keyboard":true}';
 	
