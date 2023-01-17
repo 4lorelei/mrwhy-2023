@@ -395,7 +395,7 @@ $stato_sistema=stato_corrente();
 //stato dell'utente (registrato o non_registrato)
 $stato_utente=stato_corrente_utente($chatId);
 
-if (($stato_utente=="non_registrato") || !isset($stato_utente) || empty($$stato_utente))
+if (($stato_utente=="non_registrato") || !isset($stato_utente) || empty($stato_utente))
 {
 	keyboard_registra_team ($chatId, "menu di registrazione");
 	///keyboard_admin_menu($chatId, "menu finto");
@@ -425,7 +425,6 @@ if (strcmp($text, $key_uno) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
-		exit();    // butta
 		$ret = invia_risposta($text, $chatId);
 		
 		if ($ret==true)
