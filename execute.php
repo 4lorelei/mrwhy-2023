@@ -793,7 +793,7 @@ function esiste_admin()
 	
 	$myAdminJson = file_get_contents($path_admin);
 	$admin = json_decode($myAdminJson,true);
-	if (sizeof($admin) == 0 )
+	if ((!isset($admin) || empty($admin)))
 		return false;
 	else
 	{
@@ -873,7 +873,7 @@ function keyboard_impostata($chatId)
 	$keyboard = json_decode($myKeyJson,true);
 	$nome=$keyboard[$chatId];
 	
-	if (sizeof($nome)==0)
+	if ((!isset($nome) || empty($nome)))
 	{
 		return "none";
 	}
@@ -887,7 +887,7 @@ function elenca_team()
 	
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
-	if (sizeof($utenti)==0)
+	if (!isset($utenti) || empty($utenti))
 		return "nessun team registrato";
 	else
 	{
@@ -989,7 +989,7 @@ function next_livello()
 	
 	$myLivelloJson = file_get_contents($path_livello);
 	$livello = json_decode($myLivelloJson,true);
-	if (sizeof($livello) == 0 )
+	if (!isset($livello) || empty($livello))
 	{
 		$livello=1;
 		$myLivelloJson = json_encode($livello);
@@ -1087,11 +1087,11 @@ function invia_risposta($tasto, $chatId)
 		$myPiazzamentoJson = file_get_contents($path_piazzamento);
 		$piazzamento = json_decode($myPiazzamentoJson,true);
 		
-		if (sizeof($piazzamento)==0)
+		if (!isset($piazzamento) || empty($piazzamento))
 			$piazzamento=0;
 		
 		$livello = get_livello();
-		if (sizeof($livello)==0)
+		if (!isset($livello) || empty($livello))
 			$livello=0;
 		
 		if (isset($utenti[$chatId][(int)$livello]))    //risposta già data
