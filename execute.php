@@ -573,7 +573,7 @@ function keyboard_admin_gara ($chatId, $msg)
 	
 	
 	$ch = curl_init();
-	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . urlencode($reply_markup);
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 	
@@ -617,7 +617,7 @@ function keyboard_admin_team($chatId, $msg)
 	$reply_markup='{"keyboard":[["'.$key_admin_registra_on.'","'.$key_admin_registra_off.'"],["'.$key_admin_team_visualizza.'","'.$key_admin_team_elimina.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
-	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . urlencode($reply_markup);
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 	
@@ -639,7 +639,7 @@ function keyboard_admin_set($chatId, $msg)
 	$reply_markup='{"keyboard":[["'.$key_admin_risposte.'","'.$key_admin_livello.'"],["'.$key_admin_verifica.'","'.$key_admin_reset.'"],["'.$key_admin_home.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
-	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . urlencode($reply_markup);
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 	
