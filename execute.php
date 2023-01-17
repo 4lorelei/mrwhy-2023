@@ -590,7 +590,7 @@ function keyboard_admin_gara ($chatId, $msg)
 function keyboard_admin_menu($chatId, $msg)
 {
 	global $botUrlMessage;
-	//global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_set;
+	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_set;
     $key_admin_registra = "X Registra";
  	$key_admin_team = "X TEAM";
 	$key_admin_gara = "X GARA";
