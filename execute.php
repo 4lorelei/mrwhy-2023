@@ -164,8 +164,7 @@ $key_admin_home=$emoji_admin_home."home";
 if ($text=="celihaiiceliblu")
 {
 	set_admin($chatId);
-	//keyboard_admin_menu($chatId, "menu home");
-	keyboard_registra_team ($chatId, "manu finto");
+	keyboard_admin_menu($chatId, "menu home");
 }
 if ($text=="noncelihaiiceliblu")
 {
@@ -527,7 +526,7 @@ function keyboard_registra_team ($chatId, $msg)
 	global $botUrlMessage;
 	global $key_team, $key_team_view;
 	
-	$reply_markup='{"keyboard":[["'.$key_team.'", "'.$key_team_view.'"]],"resize_keyboard":true}';
+	$reply_markup='{"keyboard":[["'.$key_team.'","'.$key_team_view.'"]],"resize_keyboard":true}';
 	$ch = curl_init();
 	
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
