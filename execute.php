@@ -591,8 +591,8 @@ function keyboard_admin_menu($chatId, $msg)
 	global $botUrlMessage;
 	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_set;
 	
-	$reply_markup='{"keyboard":[["'.$key_admin_set.'","'.$key_admin_team.'"],["'.$key_admin_gara.'"]],"resize_keyboard":true}';
-
+//	$reply_markup='{"keyboard":[["'.$key_admin_set.'","'.$key_admin_team.'"],["'.$key_admin_gara.'"]],"resize_keyboard":true}';
+	$reply_markup='{"keyboard":[["'."SET".'","'."TEAM".'"],["'."GARA".'"]],"resize_keyboard":true}';
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
