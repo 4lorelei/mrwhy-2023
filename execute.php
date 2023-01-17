@@ -421,7 +421,7 @@ if ($push == "registrazione")
 }
 
 //esecuzione comandi immediati degli utenti standard
-if (strcmp($text, $key_uno) == 0)
+if (strcmp($text, $key_uno) === 0)
 {
 	if ($stato_sistema=="risposte_accettate")
 	{
@@ -518,6 +518,7 @@ else
 	exit();
 }
 
+exit();
 
 function keyboard_registra_team ($chatId, $msg) 
 {
