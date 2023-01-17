@@ -426,6 +426,10 @@ if (strcmp($text, $key_uno) === 0)
 	if ($stato_sistema=="risposte_accettate")
 	{
 		$ret = invia_risposta($text, $chatId);
+		
+		
+		exit();  //butta
+		
 		if ($ret==true)
 			notifica_mittente($chatId, "è stata registrata la risposta 1");
 		else
