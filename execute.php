@@ -399,8 +399,8 @@ $stato_utente=stato_corrente_utente($chatId);
 
 if (($stato_utente=="non_registrato") || !isset($stato_utente) || empty($$stato_utente))
 {
-	////////////////////keyboard_registra_team ($chatId, "menu di registrazione");
-	keyboard_admin_menu($chatId, "menu finto");
+	keyboard_registra_team ($chatId, "menu di registrazione");
+	///keyboard_admin_menu($chatId, "menu finto");
 }
 
 
