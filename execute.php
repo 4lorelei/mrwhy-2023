@@ -721,14 +721,14 @@ function stato_corrente_utente($chatId)
 		return "non_registrato";
 
 }
-function registrazione_team($chatId, $text)
+function registrazione_team($chatId, $msg)
 {
 	global $path_utenti;
 	
 	//lettura del file dell'automa a stati
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
-	$utenti[$chatId]["nome"] = $text;
+	$utenti[$chatId]["nome"] = $msg;
 	$utenti[$chatId]["tot"] = 0;
 	
 	$myUtentiJson = json_encode($utenti);
@@ -771,12 +771,12 @@ function visualizza_team($chatId)
 
 }
 
-function notifica_mittente($chatId, $text)
+function notifica_mittente($chatId, $msg)
 {
 	global $botUrlMessage;
 		
 	$ch = curl_init();
-	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($text);
+	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg);
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 	
