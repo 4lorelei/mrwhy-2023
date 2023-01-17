@@ -79,12 +79,12 @@ $key_quattro=$emoji_quattro."";
 $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team=$emoji_team."registra-team";
-$key_team="yyyregistra-team";
+$key_team="yyyregistra";
 
 $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team_view=$emoji_team."visualizza-team";
-$key_team_view="yyyvisualizza-team";
+$key_team_view="yyyvisualizza";
 
 $emo_admin_registra = "\xF0\x9F\x9B\xA1";
 $emoji_admin_registra=json_decode('"'.$emo_admin_registra.'"');
@@ -123,7 +123,7 @@ $emo_admin_go = "\xE2\x96\xB6";   ///////////////////
 $emoji_admin_go=json_decode('"'.$emo_admin_go.'"');
 $key_admin_go=$emoji_admin_go."go";
 
-$emo_admin_pausa = "\xE2\x97\xBC";   /////////////////7
+$emo_admin_pausa = "\xE2\x97\xBC";   /////////////////
 $emoji_admin_pausa=json_decode('"'.$emo_admin_pausa.'"');
 $key_admin_pausa=$emoji_admin_pausa."pausa";
 
@@ -527,7 +527,7 @@ function keyboard_registra_team ($chatId, $msg)
 	global $key_team, $key_team_view;
 	
 	$reply_markup='{"keyboard":[["'.$key_team.'", "'.$key_team_view.'"]],"resize_keyboard":true}';
-	
+	$reply_markup='{"keyboard":[["'.$key_admin_go.'","'.$key_admin_pausa.'"],["'.$key_admin_punti.'","'. $key_admin_classifica. '"],["'.$key_admin_anteprima.'","'.$key_admin_home.'"]],"resize_keyboard":true}';
 	$ch = curl_init();
 	
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
