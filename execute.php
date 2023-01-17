@@ -544,7 +544,7 @@ function keyboard_gara ($chatId, $msg)
 	global $botUrlMessage;
 	global $key_uno, $key_due, $key_tre, $key_quattro;
 	
-	$reply_markup='{"keyboard":[["'.$key_uno.'","'.$key_due.'"],["'.$key_tre.'", "'.$key_quattro.'"]],"resize_keyboard":true}';
+	$reply_markup='{"keyboard":[["'.$key_uno.'","'.$key_due.'"],["'.$key_tre.'","'.$key_quattro.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 
