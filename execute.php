@@ -79,12 +79,10 @@ $key_quattro=$emoji_quattro."";
 $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team=$emoji_team."registra-team";
-$key_team="yyyregistra";
 
 $emo_team = "\xF0\x9F\x9B\xA1";
 $emoji_team=json_decode('"'.$emo_team.'"');
 $key_team_view=$emoji_team."visualizza-team";
-$key_team_view="yyyvisualizza";
 
 $emo_admin_registra = "\xF0\x9F\x9B\xA1";
 $emoji_admin_registra=json_decode('"'.$emo_admin_registra.'"');
@@ -546,7 +544,7 @@ function keyboard_gara ($chatId, $msg)
 	global $botUrlMessage;
 	global $key_uno, $key_due, $key_tre, $key_quattro;
 	
-	$reply_markup='{"keyboard":[["'.$key_uno.'", "'.$key_due.'"],["'.$key_tre.'", "'.$key_quattro.'"]],"resize_keyboard":true}';
+	$reply_markup='{"keyboard":[["'.$key_uno.'","'.$key_due.'"],["'.$key_tre.'", "'.$key_quattro.'"]],"resize_keyboard":true}';
 	
 	$ch = curl_init();
 
