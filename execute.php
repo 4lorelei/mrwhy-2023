@@ -90,7 +90,8 @@ $key_admin_registra=$emoji_admin_registra." registrazione";
 
 $emo_admin_team = "\xF0\x9F\x9B\xA1";  //////////////////
 $emoji_admin_team=json_decode('"'.$emo_admin_team.'"');
-$key_admin_team=$emoji_admin_team." team";
+//$key_admin_team=$emoji_admin_team." team";
+$key_admin_team="X team";
 
 $emo_admin_gara = "\xF0\x9F\x9A\xB2";    //////////////////  
 $emoji_admin_gara=json_decode('"'.$emo_admin_gara.'"');
@@ -592,7 +593,7 @@ function keyboard_admin_menu($chatId, $msg)
 	global $key_admin_registra, $key_admin_team, $key_admin_gara, $key_admin_set;
 	
 //	$reply_markup='{"keyboard":[["'.$key_admin_set.'","'.$key_admin_team.'"],["'.$key_admin_gara.'"]],"resize_keyboard":true}';
-	$reply_markup='{"keyboard":[["'."SET".'","'."TEAM".'"],["'."GARA".'"]],"resize_keyboard":true}';
+	$reply_markup='{"keyboard":[["'."SET".'","'.$key_admin_team.'"],["'."GARA".'"]],"resize_keyboard":true}';
 	$ch = curl_init();
 	$myUrl=$botUrlMessage . "?chat_id=" . $chatId . "&text=" . urlencode($msg). "&reply_markup=" . $reply_markup;
 	curl_setopt($ch, CURLOPT_URL, $myUrl); 
