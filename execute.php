@@ -984,7 +984,7 @@ function risposta_esatta($livello)
 	{
 		return "\nsoluzioni non impostate";
 	}
-	elseif (livello==0)
+	elseif ($livello==0)
 	{
 		return "livello zero";
 	}
