@@ -1191,7 +1191,7 @@ function notifica_classifica()
 	foreach ($aa as $key => $value)
 	{
 		//$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
-		$all=$all . $emoji_admin_team . "\n";
+		$all=$all . $utenti[$key]["nome"] .$value."\n";
 	}
 	
 	$cont=0;
