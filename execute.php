@@ -980,7 +980,14 @@ function risposta_esatta($livello)
 	$mySoluzioniJson = file_get_contents($path_soluzioni);
 	$soluzioni = json_decode($mySoluzioniJson,true);
 	
-	return $soluzioni[(int)$livello-1];
+	if(!isset($soluzioni) || empty($soluzioni))
+	{
+		return "soluzioni non impostate";
+	}
+	else
+	{
+		return $soluzioni[(int)$livello-1];
+	}
 }
 
 function next_livello()
@@ -1135,6 +1142,11 @@ function notifica_punteggio()
 	
 	//$notifica=$value[$livello];
 	$esatta=risposta_esatta($livello);
+	
+	if(!isset($utenti) || empty($utenti))
+	{
+		return "risposta esatta: ". $esatta. "\n\n(nessun utente)"
+	}
 	
 	foreach ($utenti as $key => $value)
 	{
