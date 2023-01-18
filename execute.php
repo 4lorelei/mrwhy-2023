@@ -1180,6 +1180,11 @@ function notifica_classifica()
 	$myStatoJson = file_get_contents($path_utenti);
 	$utenti = json_decode($myStatoJson,true);
 	
+	if(!isset($utenti) || empty($utenti))
+	{
+		return "classifica generale\n\n(vuota)";
+	}
+	
 	foreach ($utenti as $key => $value)
 	{
 		$aa[$key]=$value["tot"];
@@ -1190,8 +1195,7 @@ function notifica_classifica()
 	$all="";
 	foreach ($aa as $key => $value)
 	{
-		//$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
-		$all=$all . $utenti[$key]["nome"] .$value."\n";
+		$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
 	}
 	
 	$cont=0;
