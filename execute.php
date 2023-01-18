@@ -982,7 +982,11 @@ function risposta_esatta($livello)
 	
 	if(!isset($soluzioni) || empty($soluzioni))
 	{
-		return "soluzioni non impostate";
+		return "\nsoluzioni non impostate";
+	}
+	elseif (livello==0)
+	{
+		return "livello zero";
 	}
 	else
 	{
