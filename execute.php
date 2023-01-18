@@ -1145,7 +1145,7 @@ function notifica_punteggio()
 	
 	if(!isset($utenti) || empty($utenti))
 	{
-		return "risposta esatta: ". $esatta. "\n\n(nessun utente)"
+		return "risposta esatta: ". $esatta. "\n\n(nessun utente)";
 	}
 	
 	foreach ($utenti as $key => $value)
