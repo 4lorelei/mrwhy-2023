@@ -1187,9 +1187,11 @@ function notifica_classifica()
 
 	arsort($aa);
 	
+	$all="";
 	foreach ($aa as $key => $value)
 	{
-		$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
+		//$all=$all . $emoji_admin_team . " ". $utenti[$key]["nome"] .":  ".$value."\n";
+		$all=$all . $emoji_admin_team . "\n";
 	}
 	
 	$cont=0;
